@@ -3,27 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Velkommen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen text-gray-800">
 
-<h1>Velkommen til Blood Bowl</h1>
+<header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Blood Bowl</h1>
+    <div th:if="${name}">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Log ud</button>
+        </form>
+    </div>
+    <div th:unless="${name}">
+        <a href="/login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Log ind</a>
+    </div>
+</header>
 
-<!-- Hvis logget ind -->
-<div th:if="${name}">
-    <p>Logget ind som: <strong th:text="${name}"></strong></p>
-    <p>Email: <span th:text="${email}"></span></p>
-    <p>Username: <span th:text="${username}"></span></p>
-    <img th:src="${picture}" alt="Profilbillede" width="100">
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Log ud</button>
-    </form>
-</div>
+<main class="p-8 max-w-2xl mx-auto">
+    <h2 class="text-xl font-semibold mb-4">Velkommen til Blood Bowl</h2>
 
-<!-- Hvis IKKE logget ind -->
-<div th:unless="${name}">
-    <p>Du er ikke logget ind.</p>
-    <p><a href="/login">Log ind</a></p>
-</div>
+    <div th:if="${name}">
+        <p class="mb-2">Logget ind som: <strong th:text="${name}"></strong></p>
+        <p class="mb-2">Email: <span th:text="${email}"></span></p>
+        <p class="mb-4">Username: <span th:text="${username}"></span></p>
+        <img th:src="${picture}" alt="Profilbillede" class="rounded-full w-24 h-24">
+    </div>
 
+    <div th:unless="${name}">
+        <p>Du er ikke logget ind.</p>
+    </div>
+</main>
 </body>
 </html>

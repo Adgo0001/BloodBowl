@@ -1,22 +1,53 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Login</h2>
-    <div>
-        <div th:if="${param.error}" class="alert alert-error">
-            Invalid username and password.
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+
+<div class="bg-white p-8 rounded shadow-md w-full max-w-md text-center">
+    <h2 class="text-2xl font-bold mb-6">Log ind</h2>
+
+    <!-- Login med Google -->
+    <a href="/oauth2/authorization/google" class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-4">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google logo">
+        <span class="font-medium">Log ind med Google</span>
+    </a>
+
+    <!-- Login med Facebook -->
+    <a href="/oauth2/authorization/facebook" class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-6">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+             class="w-5 h-5" alt="Facebook logo">
+        <span class="font-medium">Fortsæt med Facebook</span>
+    </a>
+
+    <!-- Separator -->
+    <div class="relative mb-6">
+        <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
         </div>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
+        <div class="relative flex justify-center text-sm">
+            <span class="bg-white px-2 text-gray-500">eller</span>
         </div>
-        <h3>Login with:</h3>
-        <p>
-            <a href="/oauth2/authorization/google"><button>Google</button></a>
-            <a href="/oauth2/authorization/facebook"><button>Facebook</button></a>
-        </p>
     </div>
+
+    <!-- Login med email -->
+    <form action="/login" method="POST" class="flex flex-col gap-4">
+        <input type="email" name="email" placeholder="Email" required
+               class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-blue-200">
+        <input type="password" name="password" placeholder="Adgangskode" required
+               class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-blue-200">
+        <button type="submit" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-medium">Log ind med email</button>
+    </form>
+
+    <!-- Vilkår -->
+    <p class="text-xs text-gray-500 mt-6">
+        Ved at logge ind accepterer du vores
+        <a href="/vilkaar" class="underline hover:text-blue-600">vilkår</a> og
+        <a href="/privatliv" class="underline hover:text-blue-600">privatlivspolitik</a>.
+    </p>
+</div>
+
 </body>
 </html>
