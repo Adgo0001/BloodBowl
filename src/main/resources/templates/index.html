@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Velkommen</title>
 </head>
 <body>
+
+<h1>Velkommen til Blood Bowl</h1>
+
+<!-- Hvis logget ind -->
+<div th:if="${name}">
+    <p>Logget ind som: <strong th:text="${name}"></strong></p>
+    <p>Email: <span th:text="${email}"></span></p>
+    <p>Username: <span th:text="${username}"></span></p>
+    <img th:src="${picture}" alt="Profilbillede" width="100">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Log ud</button>
+    </form>
+</div>
+
+<!-- Hvis IKKE logget ind -->
+<div th:unless="${name}">
+    <p>Du er ikke logget ind.</p>
+    <p><a href="/login">Log ind</a></p>
+</div>
 
 </body>
 </html>

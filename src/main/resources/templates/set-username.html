@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Vælg Brugernavn</title>
+</head>
+<body>
+
+<h1>Vælg et brugernavn</h1>
+
+<form action="/set-username" method="POST" th:action="@{/set-username}">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+  <label for="username">Brugernavn:</label>
+  <input type="text" id="username" name="username" required>
+  <button type="submit">Gem</button>
+</form>
+
+<div th:if="${error}">
+  <p style="color: red;" th:text="${error}"></p>
+</div>
+
+
+</body>
+</html>
