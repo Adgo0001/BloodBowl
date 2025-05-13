@@ -1,10 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bowl Denmark</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css" />
+    <link href="https://fonts.googleapis.com/" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class'],
+            theme: {
+                extend: {
+                    colors: {
+                        // Custom gray shades
+                        gray: {
+                            750: '#2a2a3a',
+                            850: '#1f1f2a',
+                            875: '#1A1623',
+                            825: '#1E1B26',
+                        },
+                        // Custom accent and other colors
+                        orange: {
+                            600: '#FF7F00',
+                        },
+                        purple: {
+                            600: '#8B5CF6',
+                        },
+                        // Expanded color palette
+                        background: 'hsl(260 20% 12%)',
+                        foreground: 'hsl(0 0% 98%)',
+                        card: 'hsl(260 15% 15%)',
+                        popover: 'hsl(260 15% 15%)',
+                        primary: 'hsl(262 83% 75%)',
+                        secondary: 'hsl(260 10% 18%)',
+                        muted: 'hsl(260 10% 22%)',
+                        accent: 'hsl(25 95% 53%)',
+                        destructive: 'hsl(0 84% 60%)',
+                        border: 'hsl(260 10% 25%)',
+                        input: 'hsl(260 10% 25%)',
+                        ring: 'hsl(262 83% 75%)',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-gray-875 min-h-screen flex flex-col">
 
+<nav class="bg-red-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="font-medievalsharp text-2xl font-bold">Blood Bowl DK</div>
+        <div class="flex space-x-4">
+            <a href="#" class="hover:text-gray-200">Hjem</a>
+            <a href="#" class="hover:text-gray-200">Turneringer</a>
+            <a href="#" class="hover:text-gray-200">Medlemmer</a>
+            <a href="#" class="hover:text-gray-200">Login</a>
+        </div>
+    </div>
+</nav>
+
+<img src="/Human.jpg" alt="Human" class="side-image left">
+<img src="/Orc.jpg" alt="Orc" class="side-image right">
+
+<main class="container mx-auto px-4 py-8 grid grid-cols-1 gap-6 bg-gray-875">
+    <div class="bg-gray-825 shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-50">Om Blood Bowl Denmark</h2>
+        <p class="text-gray-50">
+            Danmarks officielle Blood Bowl community. Deltag i turneringer, find hold og bliv en del af fællesskabet!
+        </p>
+    </div>
+    <div class="bg-gray-875 shadow-md rounded-lg p-6">
+    <div class="bg-gray-825 shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-50">Seneste Nyheder</h2>
+        <ul class="space-y-3">
+            <li class="border-b pb-2">
+                <a class="text-gray-50 hover:underline">Ny turnering på vej!</a>
+                <p class="text-sm text-gray-500">12. maj 2025</p>
+            </li>
+            <li class="border-b pb-2">
+                <a href="#" class="text-gray-50">Opdateringer til Danish Masters</a>
+                <p class="text-sm text-gray-500">10. maj 2025</p>
+            </li>
+            <li>
+                <a href="#" class="text-gray-50">Kommende workshop</a>
+                <p class="text-sm text-gray-500">8. maj 2025</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bg-gray-825 shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-50">Kommende Turneringer</h2>
+        <ul class="space-y-3">
+            <li class="border-b pb-2">
+                <strong>Danish Masters Kvalifikation</strong>
+                <p class="text-sm text-gray-500">25. juni 2025</p>
+            </li>
+            <li class="border-b pb-2">
+                <strong>Lokalturning - København</strong>
+                <p class="text-sm text-gray-500">12. juli 2025</p>
+            </li>
+            <li>
+                <strong>Årlig Landsturning</strong>
+                <p class="text-sm text-gray-500">20-21. september 2025</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bg-gray-825 shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-50">Facebook Gruppe</h2>
+        <p class="text-gray-700 mb-4">
+            Giver mulighed for at nå bredt ud til alle medlemmer og skabe en levende, interaktiv dialog om både små og store begivenheder.
+        </p>
+        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition inline-block">
+            Besøg Facebook Gruppe
+        </a>
+    </div>
+
+    <div class="bg-gray-825 shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-50">Discord</h2>
+        <p class="text-gray-700 mb-4">
+            Fungerer som et sted, hvor medlemmer kan chatte, finde og se kampe, samt drøfte taktik og rosters.
+        </p>
+        <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition inline-block">
+            Tilslut Discord
+        </a>
+    </div>
+    </div>
+</main>
+
+<footer class="bg-gray-800 text-white py-6 mt-auto">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2025 Blood Bowl Denmark. Alle rettigheder forbeholdt.</p>
+    </div>
+</footer>
 </body>
 </html>
