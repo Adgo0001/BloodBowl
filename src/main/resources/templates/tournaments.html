@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloodBowl.dk</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
+<header>
+    <div class="navbar">
+        <a href="/index" class="logo">
+            <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
+        </a>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/archives">Archives</a>
+            <a href="/coach_rating">Coach Rating</a>
+            <a href="/danish_masters">Danish Masters</a>
+            <a href="/euro_bowl">Euro Bowl</a>
+            <a href="/tournaments">Tournaments</a>
+        </nav>
+        <div class="buttons">
+            <button class="signin">Sign In</button>
+            <button class="register">Register</button>
+        </div>
+    </div>
+</header>
 
+<main>
+    <!-- Sidebilleder -->
+    <img src="/orc-left.jpg" alt="Orc Left" class="side-image left">
+    <img src="/orc-right.jpg" alt="Orc Right" class="side-image right">
+
+    <!-- Midterindhold -->
+    <div class="content">
+        <section class="eurobowl-info">
+            <h2>GDR – Generelle Danske Regler</h2>
+            <p>GDR giver et resumé af de vigtigste informationer vedrørende en turnering, ud over den valgte regelsæt.</p>
+
+            <h3>Generelle regler</h3>
+            <ul>
+                <li>Turneringen følger den nyeste version af NAF-reglerne for turneringer. Hvis du har spørgsmål om hold eller Star Players, bedes du kontakte Turneringens Arrangør (TO) for afklaring.</li>
+                <li>Parringerne til spil 1 bestemmes tilfældigt.</li>
+                <li>Herefter vil vi fortsætte med at bruge Swiss-systemet.</li>
+                <li>Spillere, der tilføjes en holdliste midt i spillet som resultat af Masters of Undeath eller Plague Ridden specialreglen, fjernes fra listen ved spillets afslutning og overgår ikke til næste spil.</li>
+                <li>Dette er en resurrection-turnering, hvor ingen SPP opnås, og skader, kvæstelser eller dødsfald bærer ikke videre til det næste spil.</li>
+                <li>Derudover anerkender vi NAF Code of Conduct og NAF Good Habits Guide. Læs disse før turneringen.</li>
+                <li>Turneringsarrangører (TO'er) har den endelige beslutningsret i alle turneringsrelaterede spørgsmål, hvad enten det gælder regler, tidsproblemer, dårlig opførsel eller noget andet. TO'er er ansvarlige for turneringen, og deres beslutning er endelig.</li>
+            </ul>
+
+            <h3>Tidsbegrænsning</h3>
+            <p>Alle spil spilles inden for et fastsat tidsinterval, som kan variere fra turnering til turnering. Sørg for at vide, hvor lang tid der er til hvert spil, inden du starter.</p>
+            <p>Nogle turneringer anvender en blød tidsstruktur, som tillader spillet at fortsætte i pauser, mens andre har en strammere tilgang, hvor spillet afsluttes, når tiden er op, uanset spillets tilstand. Sørg for at vide, hvilken metode der gælder, inden spillet starter.</p>
+            <p>Tidsstyring kan håndteres med et skakur/app. Hvis en træner ved bordet anmoder om at bruge et ur, skal begge trænere bruge det. Hvis en træner løber tør for tid, må de kun stille op eventuelle nedlagte spillere og rulle over stødte spillere.</p>
+
+            <h3>Miniaturer</h3>
+            <ul>
+                <li>Miniaturerne behøver ikke at være fra en bestemt producent.</li>
+                <li>Miniaturerne behøver ikke at være malet.</li>
+                <li>Miniaturerne behøver ikke at have numre på sig.</li>
+                <li>Miniaturerne skal være let genkendelige enten via model, base, maling eller tilbehør.</li>
+            </ul>
+            <p>Vi opfordrer trænere til at bruge følgende farver til baser og valgte færdigheder, henholdsvis:</p>
+            <table>
+                <tr>
+                    <th>Coded Base color:</th>
+                    <th>Coded Skill band color:</th>
+                </tr>
+                <tr>
+                    <td>Grey/Black</td>
+                    <td>Lineman</td>
+                </tr>
+                <tr>
+                    <td>Red</td>
+                    <td>Blitzer</td>
+                </tr>
+                <tr>
+                    <td>Green</td>
+                    <td>Blocker</td>
+                </tr>
+                <tr>
+                    <td>White</td>
+                    <td>Thrower</td>
+                </tr>
+                <tr>
+                    <td>Yellow</td>
+                    <td>Catcher, Runner</td>
+                </tr>
+                <tr>
+                    <td>Purple</td>
+                    <td>Specialist, Big Guys</td>
+                </tr>
+                <tr>
+                    <td>Blue</td>
+                    <td>Block</td>
+                </tr>
+                <tr>
+                    <td>Yellow</td>
+                    <td>Dodge</td>
+                </tr>
+                <tr>
+                    <td>Green</td>
+                    <td>Guard</td>
+                </tr>
+                <tr>
+                    <td>White</td>
+                    <td>Wrestle</td>
+                </tr>
+                <tr>
+                    <td>Red</td>
+                    <td>Mighty Blow (+1)</td>
+                </tr>
+                <tr>
+                    <td>Orange</td>
+                    <td>Tackle</td>
+                </tr>
+            </table>
+
+            <h3>Holdark, terninger og mere</h3>
+            <ul>
+                <li>Alle trænere skal medbringe enten en fysisk eller digital kopi af deres holdliste. Hvis din modstander anmoder om at se din holdliste og du ikke kan fremvise den under spillet, betragtes det som dårlig opførsel.</li>
+                <li>Terninger skal være let genkendelige og skal deles, hvis det ønskes.</li>
+                <li>Hvis en træner ikke kan acceptere dine terninger, skal du bruge standardterninger, det vil sige NAF eller GW terninger. Hvis en træner ikke har disse terninger, bedes du kontakte turneringsarrangøren (TO) for hjælp.</li>
+                <li>Vi opfordrer til brug af terningebægre ved terningkast. At kaste terninger manuelt kan ved et uheld ramme andre spilleres omhyggeligt malede figurer, hvilket kan være frustrerende for dem, der har brugt meget tid på deres miniaturer.</li>
+                <li>Selvom terningetårne også er en mulighed, kan nogle modeller være lidt for kreative til dette miljø. Hvis du føler, at et terningetårn ikke er passende, bedes du informere turneringsarrangøren (TO), og de vil træffe en beslutning.</li>
+            </ul>
+        </section>
+    </div>
+</main>
 </body>
+<!-- Knappen til oprettelse af turnering -->
+<div class="tournament-button-container">
+    <button id="create-tournament-btn" class="tournament-btn">Opret Turnering</button>
+</div>
+
+<script src="/scripts.js"></script>
 </html>

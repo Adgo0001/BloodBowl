@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloodBowl.dk</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
+<header>
+    <div class="navbar">
+        <a href="/index" class="logo">
+            <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
+        </a>
+        <nav>
+            <a href="/index">Home</a>
+            <a href="/archives">Archives</a>
+            <a href="/coach_rating">Coach Rating</a>
+            <a href="/danish_masters">Danish Masters</a>
+            <a href="/euro_bowl">Euro Bowl</a>
+            <a href="/tournaments">Tournaments</a>
 
+        </nav>
+        <div class="buttons">
+            <button class="signin">Sign In</button>
+            <button class="register">Register</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Side-billeder -->
+    <img src="/orc-left.jpg" alt="Orc Left" class="side-image left">
+    <img src="/orc-right.jpg" alt="Orc Right" class="side-image right">
+
+    <!-- Midterindhold -->
+    <div class="content">
+        <section>
+            <h1>Danish Masters Series</h1>
+            <p><strong>En NAF-turneringsserie</strong></p>
+
+            <p>Danish Masters Series har til formål at kåre Danmarks bedste Blood Bowl-spillere!</p>
+        </section>
+
+        <section>
+            <h2>Overblik</h2>
+            <p>Serien løber årligt fra 1. januar til 31. december og følger en forud planlagt struktur fastlagt i det danske Blood Bowl-fællesskab. En træners fem bedste resultater i løbet af året tæller med i den endelige score.</p>
+            <p><strong>Pariah Cup</strong> baseres på de fire bedste resultater.</p>
+        </section>
+
+        <section>
+            <h2>Præmier</h2>
+            <ul>
+                <li>1.–3. plads</li>
+                <li>Flest skader (casualties)</li>
+                <li>Flest touchdowns</li>
+                <li>Pariah Cup</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Pariah Cup</h2>
+            <p>Med indførelsen af stjernespillere i 2020-reglerne betragtes traditionelle stunty-hold ikke længere nødvendigvis som de svageste. Pariah Cup erstatter Stunty Cup og inkluderer i stedet hold, der generelt opfattes som underdogs.</p>
+
+            <h3>Hvem bestemmer hvilke hold der er med?</h3>
+            <p>Pariah-hold udvælges af <strong>Jaqra</strong>, baseret på vinderprocenter, lav repræsentation i turneringer og input fra trænere. Listen over gyldige hold offentliggøres inden 1. januar.</p>
+
+            <h4>Pariah Cup-hold 2025</h4>
+            <ul>
+                <li>Goblins</li>
+                <li>Halflings</li>
+                <li>Snotlings</li>
+                <li>Gnomes</li>
+                <li>Ogres</li>
+                <li>Nurgle</li>
+                <li>Black Orcs</li>
+                <li>Chaos Dwarfs</li>
+                <li>Slann</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Pointsystem</h2>
+
+            <h3>Hovedseriens pointsystem</h3>
+            <p><strong>Placering:</strong> De 10 øverste placeringer i en turnering scorer 10 til 1 point. Hvis der er færre end 10 deltagere, reduceres point med 1 for hver manglende deltager.</p>
+
+            <p><strong>Bonus for store turneringer:</strong> +1 point for hver 10 deltagere der placeres under dig.</p>
+            <ul>
+                <li>Eksempel 1: 1. plads i turnering med 32 deltagere = +3 bonuspoint</li>
+                <li>Eksempel 2: 1. plads i turnering med 11 deltagere = +1 bonuspoint</li>
+                <li>Eksempel 3: 1. plads i turnering med 10 deltagere = ingen bonus</li>
+            </ul>
+
+            <p><strong>Holdturneringer:</strong> Point tildeles individuelt baseret på placering.</p>
+            <p><strong>Deltagerbonus:</strong> +1 point per turneringsdag til alle deltagere.</p>
+
+            <h3>Pariah Cup-point</h3>
+            <p>Point gives pr. kamp vundet eller uafgjort. Kun de fire bedste turneringer tæller med i den samlede Pariah-score. Pariah-hold får også point i hovedserien.</p>
+        </section>
+
+        <section>
+            <h2>Tiebreakers (ved pointlighed)</h2>
+
+            <h3>1.–3. plads</h3>
+            <ol>
+                <li>Antal turneringer spillet</li>
+                <li>Flest 1. pladser, derefter 2. pladser, osv.</li>
+            </ol>
+
+            <h3>Flest skader</h3>
+            <ol>
+                <li>Antal skader</li>
+                <li>Skade-difference</li>
+            </ol>
+
+            <h3>Flest touchdowns</h3>
+            <ol>
+                <li>Antal touchdowns</li>
+                <li>Touchdown-difference</li>
+            </ol>
+
+            <h3>Pariah Cup</h3>
+            <ol>
+                <li>Antal turneringer spillet</li>
+                <li>Antal forskellige Pariah-hold spillet med</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Leaderboard</h2>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th>NAF Nick</th>
+                    <th>Total Score</th>
+                    <th>Touchdowns</th>
+                    <th>Skader</th>
+                    <th>Pariah Score</th>
+                    <th>Turneringer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="result : ${results}">
+                    <td th:text="${result.nafNick}"></td>
+                    <td th:text="${result.totalScore}"></td>
+                    <td th:text="${result.touchdowns}"></td>
+                    <td th:text="${result.casualties}"></td>
+                    <td th:text="${result.stuntyScore}"></td>
+                    <td th:text="${result.tourneys}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</main>
 </body>
 </html>

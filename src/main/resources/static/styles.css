@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #1a132b;
+    color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+header {
+    background-color: #12101e;
+    padding: 1rem;
+    position: fixed; /* Fixér headeren */
+    top: 0; /* Sørg for, at den er øverst */
+    left: 0;
+    right: 0;
+    z-index: 10; /* Gør headeren "øverst" på siden */
+}
+
+/* Navigationsbalken */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: inherit;
+}
+.logo:hover {
+    text-decoration: underline;
+}
+
+.logo .purple {
+    color: #a88eff;
+}
+.logo .orange {
+    color: #f97316;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: 500;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+.buttons button {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.signin {
+    background-color: #8b5cf6;
+    color: #fff;
+}
+.register {
+    background-color: #f97316;
+    color: #fff;
+}
+
+/* Sidebilleder */
+.side-image {
+    position: fixed;
+    top: 100px;
+    width: 300px;
+    height: auto;
+    z-index: 1;
+    opacity: 0.6; /* Gør billedet mere gennemsigtigt */
+    border-radius: 20px;
+    mix-blend-mode: lighten; /* Fader det mere naturligt med baggrunden */
+    filter: blur(1px) brightness(1.1); /* Giver en lidt glattere og lysere effekt */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Blød skygge */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.side-image.left {
+    left: 0; /* Placér venstre billede i venstre hjørne */
+}
+
+.side-image.right {
+    right: 0; /* Placér højre billede i højre hjørne */
+}
+
+/* Indhold i midten */
+main {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column; /* Sørg for at indhold stables vertikalt */
+    align-items: center; /* Centrer indholdet horisontalt */
+    padding: 6rem 1rem 3rem; /* Giver plads under header og i bunden */
+    margin-top: 4rem;
+}
+
+main h1 {
+    color: #f97316;
+    margin: 2rem 0 1rem;
+}
+
+main ul {
+    list-style: none;
+    padding: 0;
+    max-width: 800px; /* Sørger for det ikke fylder hele skærmen */
+    width: 100%;
+    text-align: left;
+}
+
+main li {
+    background-color: #1f1b34;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+main h3 {
+    color: #a88eff;
+    margin-bottom: 0.5rem;
+}
+
+main p {
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+main small {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+
+.content {
+    max-width: 800px;
+    z-index: 2;
+}
+
+.content h1 {
+    color: #f97316;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.eurobowl-info {
+    background-color: #1f1b34;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+.eurobowl-info h2, .eurobowl-info h3 {
+    color: #f97316;
+    margin-top: 1.5rem;
+}
+
+.eurobowl-info p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* For at justere punkttegnene */
+.eurobowl-info ul {
+    padding-left: 1rem; /* Justerer afstanden fra venstre kant */
+    list-style-position: inside; /* Sørger for at punkterne kommer lidt tættere på teksten */
+    margin-bottom: 1rem;
+}
+
+.eurobowl-info li {
+    margin-bottom: 0.5rem; /* Giver lidt afstand mellem elementerne */
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    color: #fff;
+}
+
+table th, table td {
+    padding: 0.5rem;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+table th {
+    background-color: #333;
+}
+
+table tr:hover {
+    background-color: #2a2540;
+}
+
+.tournament-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem; /* Tilføj lidt ekstra margin nederst for at skabe afstand fra bunden */
+}
+
+.tournament-btn {
+    background-color: #f97316;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tournament-btn:hover {
+    background-color: #8b5cf6;
+}
+
+.tournament-btn:disabled {
+    background-color: darkred;
+    cursor: not-allowed;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
