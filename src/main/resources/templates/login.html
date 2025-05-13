@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Login eller Opret Bruger</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
 
 <div class="bg-white p-8 rounded shadow-md w-full max-w-md text-center">
-    <h2 class="text-2xl font-bold mb-6">Log ind</h2>
+    <h2 class="text-2xl font-bold mb-6" id="form-title">Log ind</h2>
+
+    <!-- Fejlbesked ved forkert login -->
+    <div th:if="${param.error}" class="mb-4 text-red-600 font-medium">
+        Forkert e-mail eller adgangskode.
+    </div>
 
     <!-- Login med Google -->
-    <a href="/oauth2/authorization/google" class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-4">
+    <a href="/oauth2/authorization/google"
+       class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-4">
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google logo">
         <span class="font-medium">Log ind med Google</span>
     </a>
 
     <!-- Login med Facebook -->
-    <a href="/oauth2/authorization/facebook" class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-6">
+    <a href="/oauth2/authorization/facebook"
+       class="flex items-center justify-center gap-3 border border-gray-300 py-2 rounded hover:bg-gray-100 mb-6">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
              class="w-5 h-5" alt="Facebook logo">
         <span class="font-medium">Fortsæt med Facebook</span>
@@ -32,22 +39,78 @@
         </div>
     </div>
 
-    <!-- Login med email -->
-    <form action="/login" method="POST" class="flex flex-col gap-4">
-        <input type="email" name="email" placeholder="Email" required
+    <!-- Login formular -->
+    <form id="login-form" th:action="@{/login}" method="post" class="flex flex-col gap-4">
+        <input type="email" name="username" placeholder="Email" required
                class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-blue-200">
         <input type="password" name="password" placeholder="Adgangskode" required
                class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-blue-200">
-        <button type="submit" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-medium">Log ind med email</button>
+        <button type="submit"
+                class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 font-medium">Log ind med email</button>
     </form>
+
+    <!-- Registreringsformular (skjult som udgangspunkt) -->
+    <form id="register-form" th:action="@{/register}" method="post" class="flex flex-col gap-4 hidden mt-4">
+        <input type="text" name="name" placeholder="Navn" required
+               class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-green-200">
+        <input type="email" name="email" th:value="${param.prefill}" placeholder="Email" required
+               class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-green-200">
+        <input type="password" name="password" placeholder="Adgangskode" required
+               class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:ring-green-200">
+        <button type="submit"
+                class="bg-green-500 text-white py-2 rounded hover:bg-green-600 font-medium">Opret konto</button>
+    </form>
+
+    <!-- Skift mellem login og opret -->
+    <p class="text-sm mt-6 text-gray-600">
+        <span id="toggle-text">Har du ikke en konto?</span>
+        <button onclick="toggleForms()" class="text-blue-500 hover:underline" type="button" id="toggle-button">
+            Opret en her
+        </button>
+    </p>
 
     <!-- Vilkår -->
     <p class="text-xs text-gray-500 mt-6">
-        Ved at logge ind accepterer du vores
+        Ved at fortsætte accepterer du vores
         <a href="/vilkaar" class="underline hover:text-blue-600">vilkår</a> og
         <a href="/privatliv" class="underline hover:text-blue-600">privatlivspolitik</a>.
     </p>
 </div>
+
+<!-- JavaScript til toggle -->
+<script>
+    function toggleForms() {
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const formTitle = document.getElementById('form-title');
+        const toggleText = document.getElementById('toggle-text');
+        const toggleButton = document.getElementById('toggle-button');
+
+        const isLoginVisible = !loginForm.classList.contains('hidden');
+
+        if (isLoginVisible) {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            formTitle.innerText = 'Opret bruger';
+            toggleText.innerText = 'Har du allerede en konto?';
+            toggleButton.innerText = 'Log ind her';
+        } else {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+            formTitle.innerText = 'Log ind';
+            toggleText.innerText = 'Har du ikke en konto?';
+            toggleButton.innerText = 'Opret en her';
+        }
+    }
+
+    // Hvis der er en prefill param, vis registreringsformularen automatisk
+    window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('prefill')) {
+            toggleForms();
+        }
+    });
+</script>
 
 </body>
 </html>

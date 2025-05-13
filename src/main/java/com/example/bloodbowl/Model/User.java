@@ -12,9 +12,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private String email;
     private String name; // Den oprindelige navn fra OAuth
     private String username; // Brugerens valg af brugernavn
+
+    @Column(nullable = true)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+
     private String providerId;
     private String picture;
 
@@ -42,6 +52,14 @@ public class User {
         this.id = id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -64,6 +82,22 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
     public String getProviderId() {

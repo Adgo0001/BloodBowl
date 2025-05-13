@@ -2,8 +2,8 @@ package com.example.bloodbowl.Controller;
 
 import com.example.bloodbowl.Model.User;
 import com.example.bloodbowl.Service.UserService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +18,29 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal != null) {
-            try {
-                User user = userService.findOrCreateUser(principal);
+    public String home(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-                // Hvis brugeren ikke har et brugernavn, send dem til set-username
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal())) {
+            try {
+                User user = userService.findOrCreateUser(authentication);
+
                 if (user != null && user.getUsername() == null) {
-                    return "redirect:/set-username";  // Ompejling hvis brugernavnet er ikke sat
+                    return "redirect:/set-username";
                 }
 
                 model.addAttribute("name", user.getName());
-                model.addAttribute("email", user.getEmail());  // Tilføj email til model
+                model.addAttribute("email", user.getEmail());
                 model.addAttribute("username", user.getUsername());
-                model.addAttribute("picture", user.getPicture());  // Tilføj billede til model
+                model.addAttribute("picture", user.getPicture());
+
             } catch (Exception e) {
                 model.addAttribute("error", "Der opstod en fejl: " + e.getMessage());
             }
         } else {
             model.addAttribute("error", "Du er ikke logget ind.");
         }
+
         return "index";
     }
 }
