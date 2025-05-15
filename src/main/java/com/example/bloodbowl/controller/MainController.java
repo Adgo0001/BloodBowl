@@ -62,15 +62,15 @@ public class MainController {
         return "euro_bowl";
     }
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String login() {
         return "login";
-    }
+    }*/
 
-    @GetMapping("/register")
+    /*@GetMapping("/register")
     public String register() {
         return "register";
-    }
+    }*/
 
     @GetMapping("/tournaments")
     public String tournaments() {

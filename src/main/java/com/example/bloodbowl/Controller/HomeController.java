@@ -1,4 +1,4 @@
-package com.example.bloodbowl.Controller;
+/*package com.example.bloodbowl.Controller;
 
 import com.example.bloodbowl.Model.User;
 import com.example.bloodbowl.Service.UserService;
@@ -43,4 +43,4 @@ public class HomeController {
 
         return "index";
     }
-}
+}*/
