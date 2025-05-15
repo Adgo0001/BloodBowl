@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BloodBowl.dk</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Bowl Denmark</title>
@@ -68,52 +63,11 @@
         }
     </script>
 </head>
-<body>
-<header>
-    <div class="navbar">
-        <a href="/index" class="logo">
-            <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
-        </a>
-        <nav>
-            <a href="/index">Home</a>
-            <a href="/archives">Archives</a>
-            <a href="/coach_rating">Coach Rating</a>
-            <a href="/danish_masters">Danish Masters</a>
-            <a href="/euro_bowl">Euro Bowl</a>
-            <a href="/tournaments">Tournaments</a>
-        </nav>
-        <div class="buttons">
-            <button class="signin">Sign In</button>
-            <button class="register">Register</button>
-        </div>
-    </div>
-</header>
-
-<main>
 <body class="bg-gray-875 min-h-screen flex flex-col">
 
 <nav class="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 shadow z-50">
     <div class="relative container mx-auto flex items-center justify-between">
 
-    <!-- Midterindhold -->
-    <h1>Nyheder</h1>
-    <ul>
-        <li th:each="news : ${newsList}">
-            <h3 th:text="${news.title}"></h3>
-            <p th:text="${news.content}"></p>
-            <small th:text="${news.publishedDate}"></small>
-        </li>
-    </ul>
-
-    <h1>Kommende Events</h1>
-    <ul>
-        <li th:each="event : ${eventList}">
-            <h3 th:text="${event.title}"></h3>
-            <p th:text="${event.description}"></p>
-            <small th:text="${event.eventDate}"></small>
-        </li>
-    </ul>
-</main>
         <!-- Left: Logo -->
         <div class="font-medieval text-2xl font-bold">Blood Bowl DK</div>
 
@@ -140,85 +94,85 @@
 
 <main class="pt-20 mb-4 container mx-auto px-4 py-8 grid grid-cols-1 gap-6 bg-gray-875 w-auto">
     <div class="border-b pb-2">
-    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Om Blood Bowl Denmark</h2>
-        <p class="text-gray-50">
-            Danmarks officielle Blood Bowl community. Deltag i turneringer, find hold og bliv en del af fællesskabet!
-        </p>
-        <div class="cta-buttons">
-            <button class="tournament">Tilmeld turnering</button>
-            <button class="learn">Lær at spille</button>
+        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Om Blood Bowl Denmark</h2>
+            <p class="text-gray-50">
+                Danmarks officielle Blood Bowl community. Deltag i turneringer, find hold og bliv en del af fællesskabet!
+            </p>
+            <div class="cta-buttons">
+                <button class="tournament">Tilmeld turnering</button>
+                <button class="learn">Lær at spille</button>
+            </div>
         </div>
     </div>
-    </div>
     <div class="bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Seneste Nyheder</h2>
-        <ul class="space-y-3">
-            <li>
-            <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <a class="text-gray-50 hover:underline">Ny turnering på vej!</a>
-                <p class="text-sm text-gray-500">12. maj 2025</p>
-            </div>
-            </li>
-            <li>
-                <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <a href="#" class="text-gray-50">Opdateringer til Danish Masters</a>
-                <p class="text-sm text-gray-500">10. maj 2025</p>
-                </div>
-            </li>
-            <li>
-                <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <a href="#" class="text-gray-50">Kommende workshop</a>
-                <p class="text-sm text-gray-500">8. maj 2025</p>
-                </div>
-            </li>
-        </ul>
-    </div>
+        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Seneste Nyheder</h2>
+            <ul class="space-y-3">
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <a class="text-gray-50 hover:underline">Ny turnering på vej!</a>
+                        <p class="text-sm text-gray-500">12. maj 2025</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <a href="#" class="text-gray-50">Opdateringer til Danish Masters</a>
+                        <p class="text-sm text-gray-500">10. maj 2025</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <a href="#" class="text-gray-50">Kommende workshop</a>
+                        <p class="text-sm text-gray-500">8. maj 2025</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Kommende Turneringer</h2>
-        <ul class="space-y-3">
-            <li>
-                <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <strong>Danish Masters Kvalifikation</strong>
-                <p class="text-sm text-gray-500">25. juni 2025</p>
-                </div>
-            </li>
-            <li>
-                <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <strong>Lokalturning - København</strong>
-                <p class="text-sm text-gray-500">12. juli 2025</p>
-                </div>
-            </li>
-            <li>
-                <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                <strong>Årlig Landsturning</strong>
-                <p class="text-sm text-gray-500">20-21. september 2025</p>
-                </div>
-            </li>
-        </ul>
-    </div>
+        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Kommende Turneringer</h2>
+            <ul class="space-y-3">
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <strong>Danish Masters Kvalifikation</strong>
+                        <p class="text-sm text-gray-500">25. juni 2025</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <strong>Lokalturning - København</strong>
+                        <p class="text-sm text-gray-500">12. juli 2025</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+                        <strong>Årlig Landsturning</strong>
+                        <p class="text-sm text-gray-500">20-21. september 2025</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Facebook Gruppe</h2>
-        <p class="text-gray-700 mb-4">
-            Giver mulighed for at nå bredt ud til alle medlemmer og skabe en levende, interaktiv dialog om både små og store begivenheder.
-        </p>
-        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition inline-block">
-            Besøg Facebook Gruppe
-        </a>
-    </div>
+        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Facebook Gruppe</h2>
+            <p class="text-gray-700 mb-4">
+                Giver mulighed for at nå bredt ud til alle medlemmer og skabe en levende, interaktiv dialog om både små og store begivenheder.
+            </p>
+            <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition inline-block">
+                Besøg Facebook Gruppe
+            </a>
+        </div>
 
-    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Discord</h2>
-        <p class="text-gray-700 mb-4">
-            Fungerer som et sted, hvor medlemmer kan chatte, finde og se kampe, samt drøfte taktik og rosters.
-        </p>
-        <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition inline-block">
-            Tilslut Discord
-        </a>
-    </div>
+        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
+            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Discord</h2>
+            <p class="text-gray-700 mb-4">
+                Fungerer som et sted, hvor medlemmer kan chatte, finde og se kampe, samt drøfte taktik og rosters.
+            </p>
+            <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition inline-block">
+                Tilslut Discord
+            </a>
+        </div>
     </div>
 </main>
 
