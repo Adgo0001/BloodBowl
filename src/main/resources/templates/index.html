@@ -116,22 +116,11 @@
         <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
             <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Seneste Nyheder</h2>
             <ul class="space-y-3">
-                <li>
+                <li th:each="news : ${newsList}">
                     <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <a class="text-gray-50 hover:underline">Ny turnering på vej!</a>
-                        <p class="text-sm text-gray-500">12. maj 2025</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <a href="#" class="text-gray-50">Opdateringer til Danish Masters</a>
-                        <p class="text-sm text-gray-500">10. maj 2025</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <a href="#" class="text-gray-50">Kommende workshop</a>
-                        <p class="text-sm text-gray-500">8. maj 2025</p>
+                            <h3 class="text-gray-50 hover:underline" th:text="${news.title}"></h3>
+                            <p class="text-sm text-gray-300" th:text="${news.content}"></p>
+                            <small class="text-sm text-gray-500" th:text="${news.publishedDate}"></small>
                     </div>
                 </li>
             </ul>
