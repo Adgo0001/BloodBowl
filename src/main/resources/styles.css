@@ -117,3 +117,55 @@ main {
     background-color: #8b5cf6;
     color: #fff;
 }
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+}
+
+.leaderboard-table thead {
+    background-color: #2e2541;
+}
+
+.leaderboard-table thead th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 2px solid #a88eff;
+    transition: background-color 0.3s ease;
+}
+
+.leaderboard-table thead th:hover {
+    background-color: #4b3e6a;
+}
+
+.leaderboard-table tbody tr {
+    border-bottom: 1px solid #3a3251;
+    transition: background-color 0.3s ease;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: #3e3660;
+}
+
+.leaderboard-table tbody td {
+    padding: 0.6rem 1rem;
+}
+
+/* Hvis du vil vise en indikator for sorteringsretning, kan du tilføje noget som: */
+.leaderboard-table thead th.sorted-asc::after {
+    content: " ▲";
+    font-size: 0.7rem;
+    color: #a88eff;
+}
+
+.leaderboard-table thead th.sorted-desc::after {
+    content: " ▼";
+    font-size: 0.7rem;
+    color: #a88eff;
+}

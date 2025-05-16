@@ -127,18 +127,41 @@
                 <li>Antal forskellige Pariah-hold spillet med</li>
             </ol>
         </section>
-
         <section>
             <h2>Leaderboard</h2>
-            <table class="leaderboard-table">
+            <table id="table-anchor" class="leaderboard-table">
                 <thead>
                 <tr>
-                    <th>NAF Nick</th>
-                    <th>Total Score</th>
-                    <th>Touchdowns</th>
-                    <th>Skader</th>
-                    <th>Pariah Score</th>
-                    <th>Turneringer</th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='nafNick', sortDir=${sortField == 'nafNick' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            NAF Nick
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='totalScore', sortDir=${sortField == 'totalScore' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Total Score
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='touchdowns', sortDir=${sortField == 'touchdowns' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Touchdowns
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='casualties', sortDir=${sortField == 'casualties' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Skader
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='stuntyScore', sortDir=${sortField == 'stuntyScore' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Pariah Score
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='tourneys', sortDir=${sortField == 'tourneys' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Turneringer
+                        </a>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -152,6 +175,19 @@
                 </tr>
                 </tbody>
             </table>
+
+
+            <script>
+                window.addEventListener('load', () => {
+                    if (window.location.hash === '#table-anchor') {
+                        const element = document.getElementById('table-anchor');
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            </script>
+
         </section>
     </div>
 </main>
