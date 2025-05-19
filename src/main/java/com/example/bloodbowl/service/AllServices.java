@@ -1,9 +1,9 @@
-package com.example.bloodbowl.service;
+package com.example.bloodbowl.Service;
 
-import com.example.bloodbowl.model.Event;
-import com.example.bloodbowl.model.News;
-import com.example.bloodbowl.repository.EventRepository;
-import com.example.bloodbowl.repository.NewsRepository;
+import com.example.bloodbowl.Model.Event;
+import com.example.bloodbowl.Model.News;
+import com.example.bloodbowl.Repository.EventRepository;
+import com.example.bloodbowl.Repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.bloodbowl.model;
+package com.example.bloodbowl.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

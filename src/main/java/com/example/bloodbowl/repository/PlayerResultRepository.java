@@ -1,6 +1,6 @@
-package com.example.bloodbowl.repository;
+package com.example.bloodbowl.Repository;
 
-import com.example.bloodbowl.model.PlayerResult;
+import com.example.bloodbowl.Model.PlayerResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

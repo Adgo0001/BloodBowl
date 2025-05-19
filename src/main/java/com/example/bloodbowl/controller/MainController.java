@@ -1,11 +1,11 @@
-package com.example.bloodbowl.controller;
+package com.example.bloodbowl.Controller;
 
-import com.example.bloodbowl.model.Coach;
-import com.example.bloodbowl.model.PlayerResult;
-import com.example.bloodbowl.repository.CoachRepository;
-import com.example.bloodbowl.service.AllServices;
-import com.example.bloodbowl.service.CoachService;
-import com.example.bloodbowl.service.PlayerResultService;
+import com.example.bloodbowl.Model.Coach;
+import com.example.bloodbowl.Model.PlayerResult;
+import com.example.bloodbowl.Repository.CoachRepository;
+import com.example.bloodbowl.Service.AllServices;
+import com.example.bloodbowl.Service.CoachService;
+import com.example.bloodbowl.Service.PlayerResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
