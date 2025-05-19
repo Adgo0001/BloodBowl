@@ -1,6 +1,8 @@
 package com.example.bloodbowl.Controller;
 
+import com.example.bloodbowl.Model.Role;
 import com.example.bloodbowl.Model.User;
+import com.example.bloodbowl.Service.AuthenticationService;
 import com.example.bloodbowl.Service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,13 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final AuthenticationService authenticationService;
+
+    public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
+
 
     @GetMapping("/set-username")
     public String showSetUsernamePage(Model model, Authentication authentication) {
@@ -26,7 +32,8 @@ public class UserController {
             return "redirect:/login"; // eller redirect til forsiden
         }
 
-        User user = userService.findOrCreateUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
+
 
         if (user == null) {
             return "redirect:/";
@@ -46,7 +53,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        User user = userService.findOrCreateUser(authentication);
+        User user = authenticationService.getAuthenticatedUser(authentication);
 
         if (username == null || username.trim().isEmpty()) {
             model.addAttribute("user", user);
@@ -60,8 +67,6 @@ public class UserController {
             model.addAttribute("error", "Brugernavnet er allerede taget.");
             return "set-username";
         }
-
-        System.out.println("Opdaterer brugernavn: " + username);
 
         userService.updateUsername(user, username);
         return "redirect:/";

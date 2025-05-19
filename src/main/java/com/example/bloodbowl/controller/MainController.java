@@ -1,10 +1,14 @@
-package com.example.bloodbowl.controller;
+package com.example.bloodbowl.Controller;
 
+import com.example.bloodbowl.Model.User;
+import com.example.bloodbowl.Service.UserService;
 import com.example.bloodbowl.model.PlayerResult;
 import com.example.bloodbowl.service.AllServices;
 import com.example.bloodbowl.service.CoachService;
 import com.example.bloodbowl.service.PlayerResultService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,25 +21,33 @@ public class MainController {
     private final AllServices allServices;
     private final CoachService coachService;
     private final PlayerResultService playerResultService;
+    private final UserService userService;
 
     @Autowired
-    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService) {
+    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService, UserService userService) {
         this.allServices = allServices;
         this.coachService = coachService;
         this.playerResultService = playerResultService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
-    public String homehome(Model model) {
-        model.addAttribute("newsList", allServices.getAllNews());
-        model.addAttribute("eventList", allServices.getAllEvents());
-        return "index";
-    }
-
-    @GetMapping("/index")
     public String home(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            // Hent eller opret bruger ud fra auth info
+            User user = userService.findOrCreateUser(auth);
+            model.addAttribute("name", user.getName());
+            model.addAttribute("email", user.getEmail());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("picture", user.getPicture());
+        }
+
+        // Tilføj nyheder og events til model
         model.addAttribute("newsList", allServices.getAllNews());
         model.addAttribute("eventList", allServices.getAllEvents());
+
         return "index";
     }
 
@@ -61,16 +73,6 @@ public class MainController {
     public String euroBowl() {
         return "euro_bowl";
     }
-
-    /*@GetMapping("/login")
-    public String login() {
-        return "login";
-    }*/
-
-    /*@GetMapping("/register")
-    public String register() {
-        return "register";
-    }*/
 
     @GetMapping("/tournaments")
     public String tournaments() {
