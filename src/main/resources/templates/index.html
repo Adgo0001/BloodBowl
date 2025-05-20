@@ -1,181 +1,152 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blood Bowl Denmark</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=MedievalSharp&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
-        /* Additional styling to ensure the font works */
         .font-medieval {
             font-family: 'MedievalSharp', cursive;
         }
-        .font-cinzel {
-            font-family: 'Cinzel', serif;
-        }
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: ['class'],
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        // Custom gray shades
                         gray: {
-                            750: '#2a2a3a',
-                            850: '#1f1f2a',
                             875: '#1A1623',
                             825: '#1E1B26',
                         },
-                        // Custom accent and other colors
                         orange: {
-                            600: '#FF7F00',
+                            600: '#f97316',
                         },
                         purple: {
-                            600: '#8B5CF6',
+                            600: '#8b5cf6',
                         },
-                        // Expanded color palette
-                        background: 'hsl(260 20% 12%)',
-                        foreground: 'hsl(0 0% 98%)',
-                        card: 'hsl(260 15% 15%)',
-                        popover: 'hsl(260 15% 15%)',
-                        primary: 'hsl(262 83% 75%)',
-                        secondary: 'hsl(260 10% 18%)',
-                        muted: 'hsl(260 10% 22%)',
-                        accent: 'hsl(25 95% 53%)',
-                        destructive: 'hsl(0 84% 60%)',
-                        border: 'hsl(260 10% 25%)',
-                        input: 'hsl(260 10% 25%)',
-                        ring: 'hsl(262 83% 75%)',
                     },
                     fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
                         medieval: ['MedievalSharp', 'cursive'],
-                    }
-                }
-            }
+                    },
+                },
+            },
         }
     </script>
 </head>
-<body class="bg-gray-875 min-h-screen flex flex-col">
-
-<nav class="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 shadow z-50">
-    <div class="relative container mx-auto flex items-center justify-between">
-
-        <!-- Left: Logo -->
+<body class="bg-gray-875 text-white">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-gray-800 p-4 shadow z-50">
+    <div class="container mx-auto flex items-center justify-between">
         <div class="font-medieval text-2xl font-bold">Blood Bowl DK</div>
-
-        <!-- Center: Nav Links (excluding Login) -->
-        <div class="absolute left-1/2 transform -translate-x-1/2">
-            <div class="flex space-x-6 text-sm">
-                <a href="#" class="hover:text-gray-200">Hjem</a>
-                <a href="#" class="hover:text-gray-200">Turneringer</a>
-                <a href="#" class="hover:text-gray-200">Medlemmer</a>
-            </div>
+        <div class="hidden md:flex space-x-6 text-sm">
+            <a href="/coach_rating" class="hover:text-gray-200">Coach Rating</a>
+            <a href="/danish_masters" class="hover:text-gray-200">Danish Masters</a>
+            <a href="/euro_bowl" class="hover:text-gray-200">Euro Bowl</a>
+            <a href="/tournaments" class="hover:text-gray-200">Turneringer</a>
+            <a href="/archives" class="hover:text-gray-200">Archives</a>
         </div>
-
-        <!-- Right: Login -->
-        <div class="relative flex items-center space-x-4 text-sm">
-            <a href="/login" class="hover:text-gray-200">Log ind</a>
+        <div class="text-sm">
+            <a href="/login" class="hover:text-gray-200">Login</a>
         </div>
     </div>
 </nav>
-<div class="fixed top-[100px] left-0 w-[300px] h-auto z-10 opacity-60 rounded-[20px] mix-blend-lighten filter blur-[1px] brightness-110 shadow-lg shadow-black/20 transition-all duration-400 ease-in-out">
-    <img src="/Human.jpg" alt="Human" class="w-full h-auto">
-    <div class="absolute left-28 top-0 h-full w-48 bg-gradient-to-l from-gray-875 to-transparent z-10 pointer-events-none"></div>
-</div>
+
+<!-- Hero Section -->
+<section class="relative pt-24 pb-16 bg-gray-875 overflow-hidden">
+    <!-- Background Images -->
+    <img src="/Human.jpg" alt="Human Player" class="hidden md:block absolute left-0 bottom-0 h-full max-h-[600px] object-contain z-10 opacity-80">
+    <img src="/Orc.jpg" alt="Orc Player" class="hidden md:block absolute right-0 bottom-0 h-full max-h-[600px] object-contain z-10 opacity-80">
+
+    <div class="container mx-auto px-6 text-center relative z-20">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 font-medieval">Velkommen til Blood Bowl Denmark</h1>
+        <p class="text-lg md:text-2xl mb-8">Danmarks officielle Blood Bowl community. Deltag i turneringer, find hold og bliv en del af fællesskabet!</p>
+        <div class="flex justify-center space-x-4">
+            <a href="#tournaments" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">Tilmeld turnering</a>
+            <a href="#learn" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">Lær at spille</a>
+        </div>
+    </div>
+</section>
 
 
-<!-- Right side image with gradient -->
-<div class="fixed top-[100px] right-0 w-[300px] h-auto z-10 opacity-60 rounded-[20px] mix-blend-lighten filter blur-[1px] brightness-110 shadow-lg shadow-black/20 transition-all duration-400 ease-in-out">
-    <img src="/Orc.jpg" alt="Orc" class="w-full h-auto">
-    <div class="absolute right-28 top-0 h-full w-48 bg-gradient-to-r from-gray-875 to-transparent z-10 pointer-events-none"></div>
-</div>
-
-
-<main class="pt-20 mb-4 container mx-auto px-4 py-8 grid grid-cols-1 gap-6 bg-gray-875 w-auto">
-    <div class="border-b pb-2">
-        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Om Blood Bowl Denmark</h2>
-            <p class="text-gray-50">
-                Danmarks officielle Blood Bowl community. Deltag i turneringer, find hold og bliv en del af fællesskabet!
-            </p>
-            <div class="cta-buttons">
-                <button class="bg-orange-500 text-white px-4 py-4 border-none rounded-lg text-lg cursor-pointer transition duration-300 hover:bg-red-500">Tilmeld turnering</button>
-                <button class="bg-purple-500 text-white px-4 py-4 border-none rounded-lg text-lg cursor-pointer transition duration-300 hover:bg-orange-600">Lær at spille</button>
+<!-- Features Section -->
+<section class="py-16 bg-gray-825">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-center font-medieval">Hvorfor vælge os?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">Turneringer</h3>
+                <p>Vi arrangerer regelmæssige turneringer over hele landet for spillere på alle niveauer.</p>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">Fællesskab</h3>
+                <p>Bliv en del af et passioneret fællesskab af Blood Bowl-entusiaster.</p>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">Ressourcer</h3>
+                <p>Få adgang til guides, strategier og ressourcer for at forbedre dit spil.</p>
             </div>
         </div>
     </div>
-    <div class="bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Seneste Nyheder</h2>
-            <ul class="space-y-3">
-                <li th:each="news : ${newsList}">
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                            <h3 class="text-gray-50 hover:underline" th:text="${news.title}"></h3>
-                            <p class="text-sm text-gray-300" th:text="${news.content}"></p>
-                            <small class="text-sm text-gray-500" th:text="${news.publishedDate}"></small>
-                    </div>
-                </li>
-            </ul>
-        </div>
+</section>
 
-        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Kommende Turneringer</h2>
-            <ul class="space-y-3">
-                <li>
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <strong class="text-gray-50">Danish Masters Kvalifikation</strong>
-                        <p class="text-sm text-gray-500">25. juni 2025</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <strong class="text-gray-50">Lokalturning - København</strong>
-                        <p class="text-sm text-gray-500">12. juli 2025</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-                        <strong class="text-gray-50">Årlig Landsturning</strong>
-                        <p class="text-sm text-gray-500">20-21. september 2025</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Facebook Gruppe</h2>
-            <p class="text-gray-700 mb-4">
-                Giver mulighed for at nå bredt ud til alle medlemmer og skabe en levende, interaktiv dialog om både små og store begivenheder.
-            </p>
-            <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition inline-block">
-                Besøg Facebook Gruppe
-            </a>
-        </div>
-
-        <div class="mb-4 bg-gray-825 shadow-md rounded-lg p-6 border border-solid border-gray-700">
-            <h2 class="font-medieval text-2xl font-bold mb-4 text-gray-50">Discord</h2>
-            <p class="text-gray-700 mb-4">
-                Fungerer som et sted, hvor medlemmer kan chatte, finde og se kampe, samt drøfte taktik og rosters.
-            </p>
-            <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition inline-block">
-                Tilslut Discord
-            </a>
+<!-- News Section -->
+<section class="py-16 bg-gray-875">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-center font-medieval">Seneste Nyheder</h2>
+        <div class="space-y-6">
+            <!-- Repeat this block for each news item -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">Nyhedstitel</h3>
+                <p class="text-gray-300">Kort beskrivelse af nyheden.</p>
+                <small class="text-gray-500">Dato</small>
+            </div>
+            <!-- End of news item block -->
         </div>
     </div>
-</main>
+</section>
 
-<footer class="bg-gray-800 text-white py-6 mt-auto border border-solid border-gray-700">
-    <div class="container mx-auto text-center">
+<!-- Upcoming Tournaments Section -->
+<section id="tournaments" class="py-16 bg-gray-825">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-center font-medieval">Kommende Turneringer</h2>
+        <div class="space-y-6">
+            <!-- Repeat this block for each tournament -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-2">Turneringsnavn</h3>
+                <p class="text-gray-300">Dato og sted for turneringen.</p>
+            </div>
+            <!-- End of tournament block -->
+        </div>
+    </div>
+</section>
+
+<!-- Learn Section -->
+<section id="learn" class="py-16 bg-gray-875">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-8 font-medieval">Lær at spille Blood Bowl</h2>
+        <p class="mb-8">Er du ny til Blood Bowl? Vi har ressourcer og guides til at hjælpe dig i gang.</p>
+        <a href="/learn" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition">Start her</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-6">
+    <div class="container mx-auto px-6 text-center">
         <p>&copy; 2025 Blood Bowl Denmark. Alle rettigheder forbeholdt.</p>
+        <div class="mt-4 flex justify-center space-x-4">
+            <a href="#" class="hover:text-gray-400">Facebook</a>
+            <a href="#" class="hover:text-gray-400">Discord</a>
+            <a href="#" class="hover:text-gray-400">Kontakt</a>
+        </div>
     </div>
 </footer>
-
 </body>
 </html>

@@ -26,7 +26,22 @@ public class SecurityConfig {
                                            CustomOAuth2UserService customOAuth2UserService) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**", "/**.jpg", "/**.png").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/**.jpg",
+                                "/**.png",
+                                "/coach_rating",
+                                "/archives",
+                                "/danish_masters",
+                                "/euro_bowl",
+                                "/tournaments",
+                                "/**.css"
+                        ).permitAll()
                         .requestMatchers("/admin-panel/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
