@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - BloodBowl.dk</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <a href="/" class="logo">
+            <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
+        </a>
+
+        <nav>
+            <a href="/admin">Admin Dashboard</a>
+            <a href="/">Til Hjemmeside</a>
+        </nav>
+        <div class="buttons">
+            <button class="signin">Log Ud</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <img src="/orc-left.jpg" alt="Orc Left" class="side-image left">
+    <img src="/orc-right.jpg" alt="Orc Right" class="side-image right">
+
+    <div class="content">
+        <h1>Admin Panel</h1>
+
+        <section>
+            <h2>Administrer</h2>
+            <ul>
+                <li><a href="/admin/users">Brugere</a></li>
+                <li><a href="/admin/news">Nyheder</a></li>
+                <li><a href="/admin/tournaments">Turneringer</a></li>
+                <li><a href="/admin/events">Events</a></li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Brugeradministration</h2>
+            <p>Se og administrér registrerede brugere:</p>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Navn</th>
+                    <th>Email</th>
+                    <th>Rolle</th>
+                    <th>Handling</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <button class="register">Redigér</button>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+        <section>
+            <h2>Turneringsadministration</h2>
+            <p>Se og administrér kommende turneringer:</p>
+            <a href="/admin/tournaments" class="button">Se alle turneringer</a>
+            <a href="/admin/tournaments/create" class="button">Opret ny turnering</a>
+        </section>
+
+    </div>
+</main>
+</body>
+</html>

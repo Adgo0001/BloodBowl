@@ -1,45 +1,49 @@
 package com.example.bloodbowl.Controller;
 
-import com.example.bloodbowl.Model.Role;
-import com.example.bloodbowl.Model.User;
-import com.example.bloodbowl.Service.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+import com.example.bloodbowl.Model.News;
+import com.example.bloodbowl.Repository.NewsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin-panel")
+@RequestMapping("/admin/news")
 public class AdminController {
 
-    private final UserService userService;
+    private final NewsRepository newsRepository;
 
-    public AdminController(UserService userService) {
-        this.userService = userService;
+    public AdminController(NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
     }
 
     @GetMapping
-    public String adminPanel(Model model, Authentication authentication) {
-        System.out.println("👤 Bruger forsøger at tilgå /admin-panel: " + authentication.getName());
-        for (GrantedAuthority authority : authentication.getAuthorities()) {
-            System.out.println("👑 Bruger har rolle: " + authority.getAuthority());
-        }
-
-        model.addAttribute("users", userService.findAllUsers());
-        model.addAttribute("roles", Role.values());
-        return "admin-panel";
+    public String listNews(Model model) {
+        model.addAttribute("newsList", newsRepository.findAll());
+        return "news_list";
     }
 
-    @PostMapping("/update-role")
-    public String updateUserRole(@RequestParam Long userId, @RequestParam Role role) {
-        userService.updateUserRole(userId, role);
-        return "redirect:/admin-panel";
+    @GetMapping("/create")
+    public String createNewsForm(Model model) {
+        model.addAttribute("news", new News());
+        return "news_form";
     }
 
-    @PostMapping("/delete-user")
-    public String deleteUser(@RequestParam Long userId) {
-        userService.deleteUserById(userId);
-        return "redirect:/admin-panel";
+    @PostMapping("/save")
+    public String saveNews(@ModelAttribute News news) {
+        newsRepository.save(news);
+        return "redirect:/admin/news";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editNews(@PathVariable Long id, Model model) {
+        News news = newsRepository.findById(id).orElseThrow();
+        model.addAttribute("news", news);
+        return "news_form";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteNews(@PathVariable Long id) {
+        newsRepository.deleteById(id);
+        return "redirect:/admin/news";
     }
 }
