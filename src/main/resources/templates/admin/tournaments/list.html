@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Turneringer</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<h1>Turneringer</h1>
+<a href="/admin/tournaments/create">Opret ny turnering</a>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th><th>Navn</th><th>Dato</th><th>Lokation</th><th>Handling</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="tournament : ${tournaments}">
+    <td th:text="${tournament.id}"></td>
+    <td th:text="${tournament.name}"></td>
+    <td th:text="${tournament.date}"></td>
+    <td th:text="${tournament.location}"></td>
+    <td>
+      <a th:href="@{'/admin/tournaments/edit/' + ${tournament.id}}">Rediger</a> |
+      <a th:href="@{'/admin/tournaments/delete/' + ${tournament.id}}" onclick="return confirm('Slet turnering?')">Slet</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/admin_panel">Tilbage til Admin Panel</a>
+</body>
+</html>

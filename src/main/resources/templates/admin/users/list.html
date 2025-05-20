@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Brugerliste</title>
+</head>
+<body>
+<h1>Brugere</h1>
+
+<a href="/admin/users/create">Opret ny bruger</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Navn</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Handlinger</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.username}"></td>
+        <td>
+            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}">Rediger</a> |
+            <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" onclick="return confirm('Er du sikker?');">Slet</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

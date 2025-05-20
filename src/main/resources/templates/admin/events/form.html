@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${tournament.id == null} ? 'Opret Turnering' : 'Rediger Turnering'"></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<h1 th:text="${tournament.id == null} ? 'Opret Turnering' : 'Rediger Turnering'"></h1>
+<form action="#" th:action="@{/admin/tournaments/save}" th:object="${tournament}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <label for="name">Navn:</label>
+  <input type="text" id="name" th:field="*{name}" required />
+
+  <label for="date">Dato:</label>
+  <input type="date" id="date" th:field="*{date}" required />
+
+  <label for="location">Lokation:</label>
+  <input type="text" id="location" th:field="*{location}" />
+
+  <label for="description">Beskrivelse:</label>
+  <textarea id="description" th:field="*{description}"></textarea>
+
+  <button type="submit">Gem</button>
+</form>
+<a href="/admin/tournaments">Tilbage til turneringer</a>
+</body>
+</html>
