@@ -10,11 +10,11 @@
 <body>
 <header>
     <div class="navbar">
-        <a href="/index" class="logo">
+        <a href="/" class="logo">
             <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
         </a>
         <nav>
-            <a href="/index">Home</a>
+            <a href="/">Home</a>
             <a href="/archives">Archives</a>
             <a href="/coach_rating">Coach Rating</a>
             <a href="/danish_masters">Danish Masters</a>
@@ -37,19 +37,76 @@
     <!-- Midterindhold -->
     <div class="content">
         <h1>Coach Rating</h1>
-        <table>
-            <thead>
+        <div class="filter-container">
+            <label for="searchInput"><strong>Filtrér efter spiller:</strong></label>
+            <input type="text" id="searchInput" placeholder="Søg efter NAF Nick..." onkeyup="filterUsers()">
+        </div>
+        <p id="noResultsMessage" style="display:none; color:#f97316; font-weight:bold; text-align:center; margin-top:1rem;">
+            Ingen resultater fundet.
+        </p>
+        <table id="userTable" class="leaderboard-table" role="table" aria-label="Leaderboard Table">
+        <thead>
             <tr>
-                <th>NAF Nick</th>
-                <th>NAF ID</th>
-                <th>Coach Rating</th>
-                <th>Year High</th>
-                <th>Country</th>
-                <th>Alltime High</th>
-                <th>Current Streak</th>
-                <th>Longest Streak</th>
-                <th>Games Played</th>
-                <th>Win %</th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='nafNick', sortDir=${sortField == 'nafNick' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        NafNick
+                        <span th:if="${sortField == 'nafNick'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='nafId', sortDir=${sortField == 'nafId' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        NafId
+                        <span th:if="${sortField == 'nafId'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='coachRating', sortDir=${sortField == 'coachRating' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Coach Rating
+                        <span th:if="${sortField == 'coachRating'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='yearHigh', sortDir=${sortField == 'yearHigh' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Year High
+                        <span th:if="${sortField == 'yearHigh'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='country', sortDir=${sortField == 'country' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Country
+                        <span th:if="${sortField == 'country'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='allTimeHigh', sortDir=${sortField == 'allTimeHigh' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        All Time High
+                        <span th:if="${sortField == 'allTimeHigh'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='currentStreakWithoutLoss', sortDir=${sortField == 'currentStreakWithoutLoss' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Current Streak Without Loss
+                        <span th:if="${sortField == 'currentStreakWithoutLoss'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='longestStreakWithoutLoss', sortDir=${sortField == 'longestStreakWithoutLoss' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Longest Streak Without Loss
+                        <span th:if="${sortField == 'longestStreakWithoutLoss'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='nafGamesPlayed', sortDir=${sortField == 'nafGamesPlayed' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        NAF Games Played
+                        <span th:if="${sortField == 'nafGamesPlayed'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/coach_rating(sortField='winPercentage', sortDir=${sortField == 'winPercentage' and sortDir == 'asc' ? 'desc' : 'asc'})}">
+                        Win %
+                        <span th:if="${sortField == 'winPercentage'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                    </a>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -69,5 +126,6 @@
         </table>
     </div>
 </main>
+<script src="/scripts.js" defer></script>
 </body>
 </html>

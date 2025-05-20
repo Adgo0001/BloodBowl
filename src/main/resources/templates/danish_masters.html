@@ -10,11 +10,11 @@
 <body>
 <header>
     <div class="navbar">
-        <a href="/index" class="logo">
+        <a href="/" class="logo">
             <span class="purple">Blood</span><span class="orange">Bowl</span>.dk
         </a>
         <nav>
-            <a href="/index">Home</a>
+            <a href="/">Home</a>
             <a href="/archives">Archives</a>
             <a href="/coach_rating">Coach Rating</a>
             <a href="/danish_masters">Danish Masters</a>
@@ -127,18 +127,54 @@
                 <li>Antal forskellige Pariah-hold spillet med</li>
             </ol>
         </section>
-
         <section>
             <h2>Leaderboard</h2>
-            <table class="leaderboard-table">
-                <thead>
+            <div class="filter-container">
+                <label for="searchInput"><strong>Filtrér efter spiller:</strong></label>
+                <input type="text" id="searchInput" placeholder="Søg efter NAF Nick..." onkeyup="filterUsers()">
+            </div>
+            <p id="noResultsMessage" style="display:none; color:#f97316; font-weight:bold; text-align:center; margin-top:1rem;">
+                Ingen resultater fundet.
+            </p>
+            <table id="userTable" class="leaderboard-table" role="table" aria-label="Leaderboard Table">
+            <thead>
                 <tr>
-                    <th>NAF Nick</th>
-                    <th>Total Score</th>
-                    <th>Touchdowns</th>
-                    <th>Skader</th>
-                    <th>Pariah Score</th>
-                    <th>Turneringer</th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='nafNick', sortDir=${sortField == 'nafNick' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            NAF Nick
+                            <span th:if="${sortField == 'nafNick'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='totalScore', sortDir=${sortField == 'totalScore' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Total Score
+                            <span th:if="${sortField == 'totalScore'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='touchdowns', sortDir=${sortField == 'touchdowns' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Touchdowns
+                            <span th:if="${sortField == 'touchdowns'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='casualties', sortDir=${sortField == 'casualties' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Skader
+                            <span th:if="${sortField == 'casualties'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='stuntyScore', sortDir=${sortField == 'stuntyScore' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Pariah Score
+                            <span th:if="${sortField == 'stuntyScore'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a th:href="@{/danish_masters(sortField='tourneys', sortDir=${sortField == 'tourneys' and sortDir == 'asc' ? 'desc' : 'asc'})} + '#table-anchor'">
+                            Turneringer
+                            <span th:if="${sortField == 'tourneys'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
+                        </a>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -155,5 +191,6 @@
         </section>
     </div>
 </main>
+<script src="/scripts.js" defer></script>
 </body>
 </html>

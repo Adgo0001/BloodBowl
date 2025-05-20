@@ -1,7 +1,7 @@
-package com.example.bloodbowl.service;
+package com.example.bloodbowl.Service;
 
-import com.example.bloodbowl.model.Coach;
-import com.example.bloodbowl.repository.CoachRepository;
+import com.example.bloodbowl.Model.Coach;
+import com.example.bloodbowl.Repository.CoachRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

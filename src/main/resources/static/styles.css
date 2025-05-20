@@ -2,22 +2,22 @@ body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: #1a132b;
-    color: #ffffff;
+    color: #e0e0e0;
     overflow-x: hidden;
     position: relative;
 }
 
 header {
     background-color: #12101e;
-    padding: 1rem;
-    position: fixed; /* Fixér headeren */
-    top: 0; /* Sørg for, at den er øverst */
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    z-index: 10; /* Gør headeren "øverst" på siden */
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
-/* Navigationsbalken */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -27,12 +27,15 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
     text-decoration: none;
     color: inherit;
+    user-select: none;
+    transition: color 0.3s ease;
 }
 .logo:hover {
+    color: #a88eff;
     text-decoration: underline;
 }
 
@@ -44,191 +47,231 @@ header {
 }
 
 nav a {
-    color: #ffffff;
+    color: #e0e0e0;
     text-decoration: none;
-    margin: 0 0.5rem;
-    font-weight: 500;
+    margin: 0 0.7rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease;
 }
 nav a:hover {
+    color: #f97316;
     text-decoration: underline;
 }
 
 .buttons button {
-    margin-left: 0.5rem;
-    padding: 0.5rem 1rem;
+    margin-left: 0.7rem;
+    padding: 0.5rem 1.2rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
 }
 .signin {
     background-color: #8b5cf6;
     color: #fff;
 }
+.signin:hover {
+    background-color: #6f3fd9;
+}
 .register {
     background-color: #f97316;
     color: #fff;
 }
+.register:hover {
+    background-color: #d55e11;
+}
 
-/* Sidebilleder */
 .side-image {
     position: fixed;
     top: 100px;
-    width: 300px;
+    width: 280px;
     height: auto;
     z-index: 1;
-    opacity: 0.6; /* Gør billedet mere gennemsigtigt */
+    opacity: 0.4;
     border-radius: 20px;
-    mix-blend-mode: lighten; /* Fader det mere naturligt med baggrunden */
-    filter: blur(1px) brightness(1.1); /* Giver en lidt glattere og lysere effekt */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Blød skygge */
+    mix-blend-mode: lighten;
+    filter: blur(1px) brightness(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     transition: opacity 0.4s ease, transform 0.4s ease;
+    user-select: none;
 }
-
 .side-image.left {
-    left: 0; /* Placér venstre billede i venstre hjørne */
+    left: 0;
 }
-
 .side-image.right {
-    right: 0; /* Placér højre billede i højre hjørne */
+    right: 0;
 }
 
-/* Indhold i midten */
 main {
     position: relative;
     z-index: 2;
+    max-width: 1100px;
+    margin: 130px auto 50px; /* Skub main ned under header */
+    padding: 0 1.5rem;
     display: flex;
-    flex-direction: column; /* Sørg for at indhold stables vertikalt */
-    align-items: center; /* Centrer indholdet horisontalt */
-    padding: 6rem 1rem 3rem; /* Giver plads under header og i bunden */
-    margin-top: 4rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
-
-main h1 {
-    color: #f97316;
-    margin: 2rem 0 1rem;
-}
-
-main ul {
-    list-style: none;
-    padding: 0;
-    max-width: 800px; /* Sørger for det ikke fylder hele skærmen */
-    width: 100%;
-    text-align: left;
-}
-
-main li {
-    background-color: #1f1b34;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-main h3 {
-    color: #a88eff;
-    margin-bottom: 0.5rem;
-}
-
-main p {
-    line-height: 1.5;
-    margin-bottom: 0.5rem;
-}
-
-main small {
-    font-size: 0.85rem;
-    color: #ccc;
-}
-
 
 .content {
-    max-width: 800px;
-    z-index: 2;
+    width: 100%;
+    background: rgba(30, 23, 45, 0.85);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    user-select: text;
 }
 
-.content h1 {
+h1, h2, h3, h4 {
     color: #f97316;
-    margin-bottom: 1.5rem;
-    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
-.eurobowl-info {
-    background-color: #1f1b34;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem auto;
-    max-width: 900px;
+h1 {
+    font-size: 2.8rem;
+    border-bottom: 3px solid #a88eff;
+    padding-bottom: 0.3rem;
 }
 
-.eurobowl-info h2, .eurobowl-info h3 {
-    color: #f97316;
+h2 {
+    font-size: 1.9rem;
+}
+
+h3 {
+    font-size: 1.4rem;
     margin-top: 1.5rem;
 }
 
-.eurobowl-info p {
-    margin-bottom: 1rem;
+h4 {
+    font-size: 1.2rem;
+}
+
+p, li {
     line-height: 1.6;
+    font-size: 1rem;
+    color: #ccc;
 }
 
-/* For at justere punkttegnene */
-.eurobowl-info ul {
-    padding-left: 1rem; /* Justerer afstanden fra venstre kant */
-    list-style-position: inside; /* Sørger for at punkterne kommer lidt tættere på teksten */
-    margin-bottom: 1rem;
+ul, ol {
+    margin-left: 1.2rem;
 }
 
-.eurobowl-info li {
-    margin-bottom: 0.5rem; /* Giver lidt afstand mellem elementerne */
+.filter-container {
+    margin: 1.5rem 0 1rem 0;
+    width: 100%;
+    max-width: 400px;
 }
 
+.filter-container label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    display: block;
+    color: #f0f0f0;
+}
 
+.filter-container input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    background-color: #2e2546;
+    color: #eee;
+    box-shadow: inset 0 0 6px #7a68b8;
+    transition: box-shadow 0.3s ease;
+}
+.filter-container input:focus {
+    outline: none;
+    box-shadow: 0 0 8px 2px #f97316;
+}
 
-table {
+.leaderboard-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
-    color: #fff;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #eee;
 }
 
-table th, table td {
-    padding: 0.5rem;
-    border: 1px solid #444;
+.leaderboard-table thead tr {
+    background-color: #2f2750;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 12px 15px;
     text-align: left;
+    border-bottom: 1px solid #3c3460;
+    user-select: none;
 }
 
-table th {
-    background-color: #333;
-}
-
-table tr:hover {
-    background-color: #2a2540;
-}
-
-.tournament-button-container {
+.leaderboard-table th a {
+    color: #e0e0e0;
+    text-decoration: none;
     display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 3rem; /* Tilføj lidt ekstra margin nederst for at skabe afstand fra bunden */
-}
-
-.tournament-btn {
-    background-color: #f97316;
-    color: white;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: color 0.3s ease;
 }
 
-.tournament-btn:hover {
-    background-color: #8b5cf6;
+.leaderboard-table th a:hover {
+    color: #f97316;
+    text-decoration: underline;
 }
 
-.tournament-btn:disabled {
-    background-color: darkred;
-    cursor: not-allowed;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+.leaderboard-table tbody tr {
+    background-color: #241f3d;
+    transition: background-color 0.3s ease;
+    cursor: default;
 }
 
+.leaderboard-table tbody tr:hover {
+    background-color: #3a2f6f;
+}
+
+.leaderboard-table tbody td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Vis pil til sortering i th */
+.leaderboard-table th span {
+    font-size: 1rem;
+    color: #f97316;
+}
+
+/* No results message */
+#noResultsMessage {
+    margin-top: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+    .side-image {
+        display: none;
+    }
+    main {
+        margin: 100px 1rem 40px;
+        padding: 0 1rem;
+    }
+    .content {
+        padding: 1.5rem 1.8rem;
+    }
+    nav a {
+        font-size: 0.9rem;
+    }
+    .navbar {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

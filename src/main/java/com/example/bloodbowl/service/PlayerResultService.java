@@ -1,7 +1,8 @@
-package com.example.bloodbowl.service;
+package com.example.bloodbowl.Service;
 
-import com.example.bloodbowl.model.PlayerResult;
-import com.example.bloodbowl.repository.PlayerResultRepository;
+import com.example.bloodbowl.Model.PlayerResult;
+import com.example.bloodbowl.Repository.PlayerResultRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class PlayerResultService {
 
     public List<PlayerResult> getAllResults() {
         return repository.findAll();
+    }
+
+    public List<PlayerResult> getAllResultsSorted(Sort sort) {
+        return repository.findAll(sort);
     }
 
     public PlayerResult saveResult(PlayerResult result) {
