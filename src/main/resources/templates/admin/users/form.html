@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Opret / Rediger Bruger</title>
+</head>
+<body>
+<h1>Bruger Formular</h1>
+
+<form th:action="@{/admin/users/save}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Navn:</label>
+    <input type="text" th:field="*{name}" required /><br/>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required /><br/>
+
+    <label>Username:</label>
+    <input type="text" th:field="*{username}" /><br/>
+
+    <label>Password (nyt eller blank for ingen ændring):</label>
+    <input type="password" th:field="*{password}" /><br/>
+
+    <button type="submit">Gem</button>
+</form>
+
+<a href="/admin/users">Tilbage til liste</a>
+</body>
+</html>

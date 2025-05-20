@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nyheder - Admin</title>
+</head>
+<body>
+<h1>Nyheder</h1>
+<a th:href="@{/admin/news/create}">Opret ny nyhed</a>
+<table>
+    <tr>
+        <th>Titel</th>
+        <th>Dato</th>
+        <th>Handlinger</th>
+    </tr>
+    <tr th:each="news : ${newsList}">
+        <td th:text="${news.title}"></td>
+        <td th:text="${news.publishedDate}"></td>
+        <td>
+            <a th:href="@{'/admin/news/edit/' + ${news.id}}">Redigér</a> |
+            <a th:href="@{'/admin/news/delete/' + ${news.id}}"
+               onclick="return confirm('Er du sikker?')">Slet</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Redigér Nyhed</title>
+</head>
+<body>
+<h1 th:text="${news.id} == null ? 'Opret Nyhed' : 'Redigér Nyhed'"></h1>
+<form th:action="@{/admin/news/save}" th:object="${news}" method="post">
+  <input type="hidden" th:field="*{id}"/>
+  <label>Titel: <input type="text" th:field="*{title}"/></label><br>
+  <label>Indhold: <textarea th:field="*{content}"></textarea></label><br>
+  <label>Publiceringsdato: <input type="date" th:field="*{publishedDate}"/></label><br>
+  <button type="submit">Gem</button>
+</form>
+</body>
+</html>

@@ -2,7 +2,9 @@ package com.example.bloodbowl.Controller;
 
 import com.example.bloodbowl.Model.Coach;
 import com.example.bloodbowl.Model.PlayerResult;
+import com.example.bloodbowl.Model.User;
 import com.example.bloodbowl.Repository.CoachRepository;
+import com.example.bloodbowl.Repository.UserRepository;
 import com.example.bloodbowl.Service.AllServices;
 import com.example.bloodbowl.Service.CoachService;
 import com.example.bloodbowl.Service.PlayerResultService;
@@ -22,13 +24,15 @@ public class MainController {
     private final CoachService coachService;
     private final PlayerResultService playerResultService;
     private final CoachRepository coachRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService, CoachRepository coachRepository) {
+    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService, CoachRepository coachRepository, UserRepository userReporitory) {
         this.allServices = allServices;
         this.coachService = coachService;
         this.playerResultService = playerResultService;
         this.coachRepository = coachRepository;
+        this.userRepository = userReporitory;
     }
 
     @GetMapping("/")
@@ -99,5 +103,12 @@ public class MainController {
     @GetMapping("/tournaments")
     public String tournaments() {
         return "tournaments";
+    }
+
+    @GetMapping("/admin_panel")
+    public String adminDashboard(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "admin_panel";
     }
 }
