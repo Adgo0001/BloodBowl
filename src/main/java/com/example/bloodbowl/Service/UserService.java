@@ -9,9 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -27,13 +25,35 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    // Tilføjet da du bruger den i controlleren, men mangler i din kode:
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Bruger ikke fundet med id: " + id));
+    }
+
     public User createUser(User user) {
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
+    }
+
+    public User createOAuthUser(String email, String name, String picture, String providerId, Provider provider) {
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name != null ? name : email);
+        user.setPicture(picture);
+        user.setProviderId(providerId);
+        user.setProvider(provider);
+        user.setRole(Role.USER);
+        return createUser(user);
     }
 
     public void registerUser(String email, String password, String name) {
@@ -54,10 +74,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
     public void updateUserRole(Long userId, Role newRole) {
         userRepository.findById(userId).ifPresent(user -> {
             user.setRole(newRole);
@@ -65,49 +81,28 @@ public class UserService {
         });
     }
 
-    public void deleteUserById(Long userId) {
-        userRepository.deleteById(userId);
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
     public User findOrCreateUser(Authentication auth) {
-        if (auth == null) {
-            return null;
-        }
+        if (auth == null) return null;
 
         Object principal = auth.getPrincipal();
-        String email = null;
-        String name = null;
-        String picture = null;
+        if (!(principal instanceof OAuth2User oauthUser)) return null;
 
-        if (principal instanceof OAuth2User) {
-            OAuth2User oauthUser = (OAuth2User) principal;
-            Map<String, Object> attributes = oauthUser.getAttributes();
+        String email = oauthUser.getAttribute("email");
+        if (email == null) return null;
 
-            email = (String) attributes.get("email");
-            name = (String) attributes.get("name");
-            picture = (String) attributes.get("picture");
-        }
+        return findByEmail(email).orElseGet(() -> {
+            String name = oauthUser.getAttribute("name");
+            String picture = oauthUser.getAttribute("picture");
+            String providerId = oauthUser.getAttribute("sub"); // Google / GitHub bruger "sub"
+            return createOAuthUser(email, name, picture, providerId, Provider.GOOGLE);
+        });
+    }
 
-        if (email == null) {
-            // Kan ikke finde email, returner null eller kast exception
-            return null;
-        }
-
-        // Find bruger i databasen
-        Optional<User> optionalUser = findByEmail(email);
-
-        if (optionalUser.isPresent()) {
-            return optionalUser.get();
-        } else {
-            // Opret ny bruger hvis ikke findes
-            User user = new User();
-            user.setEmail(email);
-            user.setName(name != null ? name : "No Name");
-            user.setPicture(picture);
-            user.setRole(Role.USER); // standard rolle
-            user.setProvider(Provider.GOOGLE); // eller andet ud fra login
-
-            return createUser(user);
-        }
+    public User save(User user) {
+        return createUser(user); // Ensartet entrypoint
     }
 }

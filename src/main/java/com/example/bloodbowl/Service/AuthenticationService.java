@@ -1,7 +1,6 @@
 package com.example.bloodbowl.Service;
 
 import com.example.bloodbowl.Model.Provider;
-import com.example.bloodbowl.Model.Role;
 import com.example.bloodbowl.Model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,23 +23,15 @@ public class AuthenticationService {
         String email = oAuth2User.getAttribute("email");
         if (email == null) throw new IllegalArgumentException("Ingen e-mail fundet");
 
-        return userService.findByEmail(email).orElseGet(() -> {
-            User user = new User();
-            user.setEmail(email);
-            String name = (String) oAuth2User.getAttribute("name");
-            user.setName(Optional.ofNullable(name).orElse(email));
-            user.setProviderId(oAuth2User.getAttribute("sub")); // "id" for Facebook
-            user.setPicture(oAuth2User.getAttribute("picture"));
-            user.setRole(Role.USER);
-
-            switch (registrationId.toLowerCase()) {
-                case "google" -> user.setProvider(Provider.GOOGLE);
-                case "facebook" -> user.setProvider(Provider.FACEBOOK);
-                default -> throw new IllegalStateException("Ukendt OAuth provider: " + registrationId);
-            }
-
-            return userService.createUser(user);
-        });
+        return userService.findByEmail(email).orElseGet(() ->
+                userService.createOAuthUser(
+                        email,
+                        oAuth2User.getAttribute("name"),
+                        oAuth2User.getAttribute("picture"),
+                        oAuth2User.getAttribute("sub"), // Eller "id" for Facebook
+                        mapToProvider(registrationId)
+                )
+        );
     }
 
     public User getAuthenticatedUser(Authentication authentication) {
@@ -54,5 +45,13 @@ public class AuthenticationService {
         } else {
             throw new IllegalStateException("Ukendt brugertype");
         }
+    }
+
+    private Provider mapToProvider(String registrationId) {
+        return switch (registrationId.toLowerCase()) {
+            case "google" -> Provider.GOOGLE;
+            case "facebook" -> Provider.FACEBOOK;
+            default -> throw new IllegalStateException("Ukendt provider: " + registrationId);
+        };
     }
 }

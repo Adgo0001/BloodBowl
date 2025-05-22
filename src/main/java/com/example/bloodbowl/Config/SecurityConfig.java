@@ -42,7 +42,7 @@ public class SecurityConfig {
                                 "/tournaments",
                                 "/**.css"
                         ).permitAll()
-                        .requestMatchers("/admin-panel/**").hasRole("ADMIN")
+                        .requestMatchers("/admin_panel/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -1,4 +1,4 @@
-package com.example.bloodbowl.Security;
+package com.example.bloodbowl.Config;
 
 import com.example.bloodbowl.Model.User;
 import org.springframework.security.core.GrantedAuthority;
