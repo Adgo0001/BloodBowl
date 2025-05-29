@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayerResultRepository extends JpaRepository<PlayerResult, Long> {
+
 }
