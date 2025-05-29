@@ -21,12 +21,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**", "/**.jpg", "/**.png").permitAll()
+                        // Allow Danish Masters API endpoints
+                        .requestMatchers("/api/**").permitAll()
+                        // Allow static resources and favicon
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/**.jpg", "/**.png", "/favicon.ico").permitAll()
+                        // Allow public pages
+                        .requestMatchers("/", "/login", "/register", "/coach_rating", "/danish_masters", "/tournaments", "/euro_bowl", "/archives", "/**.css").permitAll()
+                        .requestMatchers("/ApiTester", "/TournamentTracker", "/BloodbowlServletTest").permitAll()
+                        // Require authentication for everything else
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureHandler(failureHandler) // Her bruger vi din custom handler
+                        .failureHandler(failureHandler)
                         .defaultSuccessUrl("/set-username", true)
                         .permitAll()
                 )
@@ -37,8 +44,12 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .permitAll()
-                );
-
+                )
+                .csrf(csrf -> csrf
+                        // Disable CSRF for API endpoints only
+                        .ignoringRequestMatchers("/api/**")
+                )
+                .headers(headers -> headers.frameOptions().disable()); // Keep your H2 config
         return http.build();
     }
 

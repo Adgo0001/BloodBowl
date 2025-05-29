@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>Blood Bowl Tournament Tracker</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>dbUrl</param-name>
+        <param-value>jdbc:mysql://localhost:3306/Bloodbowl</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>dbUser</param-name>
+        <param-value>your_username</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>dbPassword</param-name>
+        <param-value>your_password</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>UploadTournamentServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.UploadTournamentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadTournamentServlet</servlet-name>
+        <url-pattern>/UploadTournamentServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StandingsServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.StandingsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StandingsServlet</servlet-name>
+        <url-pattern>/StandingsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ParseCSVServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.ParseCSVServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ParseCSVServlet</servlet-name>
+        <url-pattern>/ParseCSVServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add error pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.html</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.html</location>
+    </error-page>
+
+    <servlet>
+        <servlet-name>StandingsApiServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.StandingsApiServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StandingsApiServlet</servlet-name>
+        <url-pattern>/api/standings/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TournamentApiServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.TournamentApiServlet</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TournamentApiServlet</servlet-name>
+        <url-pattern>/api/tournaments/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CoachApiServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.CoachApiServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CoachApiServlet</servlet-name>
+        <url-pattern>/api/coaches/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SimpleJsonTestServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.SimpleJsonTestServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SimpleJsonTestServlet</servlet-name>
+        <url-pattern>/SimpleJsonTestServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RawResponseServlet</servlet-name>
+        <servlet-class>com.example.bloodbowl.Servlet.RawResponseServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RawResponseServlet</servlet-name>
+        <url-pattern>/RawResponseServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>

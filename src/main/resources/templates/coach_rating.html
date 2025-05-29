@@ -3,9 +3,239 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BloodBowl.dk</title>
+    <title>Coach Rating - BloodBowl.dk</title>
     <link rel="stylesheet" href="/styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:,">
+    <style>
+        /* Additional styles for Danish Masters functionality - matching your dark theme */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: #2e2546;
+            border-radius: 12px;
+            padding: 6px;
+            box-shadow: inset 0 0 6px #7a68b8;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #ccc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab:hover {
+            background-color: #3a2f6f;
+            color: #e0e0e0;
+        }
+
+        .tab.active {
+            background-color: #8b5cf6;
+            color: white;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .year-selector {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .year-selector label {
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+
+        .year-selector select {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e2546;
+            color: #eee;
+            font-size: 14px;
+            box-shadow: inset 0 0 6px #7a68b8;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .year-selector select:focus {
+            outline: none;
+            box-shadow: 0 0 8px 2px #f97316;
+        }
+
+        .upload-section {
+            background-color: rgba(46, 37, 70, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px dashed #7a68b8;
+            transition: border-color 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #f97316;
+        }
+
+        .upload-section h3 {
+            margin-top: 0;
+            color: #f97316;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #2e2546;
+            color: #eee;
+            box-shadow: inset 0 0 6px #7a68b8;
+            transition: box-shadow 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 8px 2px #f97316;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #6f3fd9;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #f97316;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d55e11;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+        }
+
+        .pariah-teams {
+            background-color: rgba(249, 115, 22, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #f97316;
+            margin-bottom: 20px;
+        }
+
+        .pariah-teams h3 {
+            margin-top: 0;
+            color: #f97316;
+        }
+
+        .pariah-teams ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pariah-teams li {
+            background-color: rgba(249, 115, 22, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #f97316;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(249, 115, 22, 0.5);
+        }
+
+        .standings-info {
+            background-color: rgba(139, 92, 246, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .standings-info p {
+            margin: 0;
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+
+        nav a.active {
+            color: #f97316;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .tabs {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .tab {
+                flex: 1 1 calc(33.333% - 4px);
+                min-width: 120px;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -16,11 +246,10 @@
         <nav>
             <a href="/">Home</a>
             <a href="/archives">Archives</a>
-            <a href="/coach_rating">Coach Rating</a>
+            <a href="/coach_rating" class="active">Coach Rating</a>
             <a href="/danish_masters">Danish Masters</a>
             <a href="/euro_bowl">Euro Bowl</a>
             <a href="/tournaments">Tournaments</a>
-
         </nav>
         <div class="buttons">
             <button class="signin">Sign In</button>
@@ -30,102 +259,691 @@
 </header>
 
 <main>
-    <!-- Side-billeder -->
     <img src="/orc-left.jpg" alt="Orc Left" class="side-image left">
     <img src="/orc-right.jpg" alt="Orc Right" class="side-image right">
 
-    <!-- Midterindhold -->
     <div class="content">
         <h1>Coach Rating</h1>
-        <div class="filter-container">
-            <label for="searchInput"><strong>Filtrér efter spiller:</strong></label>
-            <input type="text" id="searchInput" placeholder="Søg efter NAF Nick..." onkeyup="filterUsers()">
+
+        <div class="year-selector">
+            <label for="year-selector"><strong>Vælg år:</strong></label>
+            <select id="year-selector">
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
         </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'main')">Hovedserie</button>
+            <button class="tab" onclick="openTab(event, 'casualties')">Flest Skader</button>
+            <button class="tab" onclick="openTab(event, 'touchdowns')">Flest Touchdowns</button>
+            <button class="tab" onclick="openTab(event, 'pariah')">Pariah Cup</button>
+            <button class="tab" onclick="openTab(event, 'tournaments')">Turneringer</button>
+            <button class="tab" onclick="openTab(event, 'admin')">Administration</button>
+        </div>
+
+        <div id="main" class="tab-content active">
+            <div class="standings-info">
+                <p>De bedste 5 resultater tæller for hver træner. Placeringspoint: 1. plads = 10 point, 2. plads = 9 point, osv.</p>
+            </div>
+
+            <div class="filter-container">
+                <label for="searchMainInput"><strong>Filtrér efter træner:</strong></label>
+                <input type="text" id="searchMainInput" placeholder="Søg efter træner..." onkeyup="filterTable('main-standings-body', 'searchMainInput')">
+            </div>
+
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 0, 'number')">Position <span id="sort-main-0"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 1, 'text')">Træner <span id="sort-main-1"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 2, 'number')">Point <span id="sort-main-2"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 3, 'number')">Turneringer <span id="sort-main-3"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 4, 'text')">Placeringer <span id="sort-main-4"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 5, 'number')">Gennemsnit <span id="sort-main-5"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 6, 'number')">Bedste <span id="sort-main-6"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 7, 'number')">Kampe <span id="sort-main-7"></span></a></th>
+                    <th><a href="#" onclick="sortTable('main-standings-body', 8, 'number')">Sejr % <span id="sort-main-8"></span></a></th>
+                </tr>
+                </thead>
+                <tbody id="main-standings-body"></tbody>
+            </table>
+        </div>
+
+        <div id="casualties" class="tab-content">
+            <div class="standings-info">
+                <p>Rangeret efter totale skader. Tiebreaker: skadedifference.</p>
+            </div>
+            <div class="filter-container">
+                <label for="searchCasInput"><strong>Filtrér efter træner:</strong></label>
+                <input type="text" id="searchCasInput" placeholder="Søg efter træner..." onkeyup="filterTable('casualties-standings-body', 'searchCasInput')">
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th><a href="#" onclick="sortTable('casualties-standings-body', 0, 'number')">Position <span id="sort-cas-0"></span></a></th>
+                    <th><a href="#" onclick="sortTable('casualties-standings-body', 1, 'text')">Træner <span id="sort-cas-1"></span></a></th>
+                    <th><a href="#" onclick="sortTable('casualties-standings-body', 2, 'number')">Totale Skader <span id="sort-cas-2"></span></a></th>
+                    <th><a href="#" onclick="sortTable('casualties-standings-body', 3, 'number')">Difference <span id="sort-cas-3"></span></a></th>
+                    <th><a href="#" onclick="sortTable('casualties-standings-body', 4, 'number')">Gennemsnit <span id="sort-cas-4"></span></a></th>
+                </tr>
+                </thead>
+                <tbody id="casualties-standings-body"></tbody>
+            </table>
+        </div>
+
+        <div id="touchdowns" class="tab-content">
+            <div class="standings-info">
+                <p>Rangeret efter totale touchdowns. Tiebreaker: touchdown-difference.</p>
+            </div>
+            <div class="filter-container">
+                <label for="searchTdInput"><strong>Filtrér efter træner:</strong></label>
+                <input type="text" id="searchTdInput" placeholder="Søg efter træner..." onkeyup="filterTable('touchdowns-standings-body', 'searchTdInput')">
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th><a href="#" onclick="sortTable('touchdowns-standings-body', 0, 'number')">Position <span id="sort-td-0"></span></a></th>
+                    <th><a href="#" onclick="sortTable('touchdowns-standings-body', 1, 'text')">Træner <span id="sort-td-1"></span></a></th>
+                    <th><a href="#" onclick="sortTable('touchdowns-standings-body', 2, 'number')">Totale TD <span id="sort-td-2"></span></a></th>
+                    <th><a href="#" onclick="sortTable('touchdowns-standings-body', 3, 'number')">Difference <span id="sort-td-3"></span></a></th>
+                    <th><a href="#" onclick="sortTable('touchdowns-standings-body', 4, 'number')">Gennemsnit <span id="sort-td-4"></span></a></th>
+                </tr>
+                </thead>
+                <tbody id="touchdowns-standings-body"></tbody>
+            </table>
+        </div>
+
+        <div id="pariah" class="tab-content">
+            <div class="standings-info">
+                <p>De bedste 4 turneringer tæller for hver træner. Point optjenes per vundet eller uafgjort kamp.</p>
+            </div>
+
+            <div class="pariah-teams">
+                <h3>Pariah Cup Hold 2025</h3>
+                <ul>
+                    <li>Goblins</li>
+                    <li>Halflings</li>
+                    <li>Snotlings</li>
+                    <li>Gnomes</li>
+                    <li>Ogres</li>
+                    <li>Nurgle</li>
+                    <li>Black Orcs</li>
+                    <li>Chaos Dwarfs</li>
+                    <li>Slann</li>
+                </ul>
+            </div>
+
+            <div class="filter-container">
+                <label for="searchPariahInput"><strong>Filtrér efter træner:</strong></label>
+                <input type="text" id="searchPariahInput" placeholder="Søg efter træner..." onkeyup="filterTable('pariah-standings-body', 'searchPariahInput')">
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 0, 'number')">Position <span id="sort-pariah-0"></span></a></th>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 1, 'text')">Træner <span id="sort-pariah-1"></span></a></th>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 2, 'number')">Point <span id="sort-pariah-2"></span></a></th>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 3, 'number')">Turneringer <span id="sort-pariah-3"></span></a></th>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 4, 'number')">Racer <span id="sort-pariah-4"></span></a></th>
+                    <th><a href="#" onclick="sortTable('pariah-standings-body', 5, 'number')">Gennemsnit <span id="sort-pariah-5"></span></a></th>
+                </tr>
+                </thead>
+                <tbody id="pariah-standings-body"></tbody>
+            </table>
+        </div>
+
+        <div id="tournaments" class="tab-content">
+            <h2>Turneringer</h2>
+            <div class="filter-container">
+                <label for="searchTournamentInput"><strong>Filtrér efter turnering:</strong></label>
+                <input type="text" id="searchTournamentInput" placeholder="Søg efter turnering..." onkeyup="filterTable('tournaments-body', 'searchTournamentInput')">
+            </div>
+            <table class="leaderboard-table">
+                <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>Dato</th>
+                    <th>Trænere</th>
+                    <th>Dage</th>
+                    <th>Handlinger</th>
+                </tr>
+                </thead>
+                <tbody id="tournaments-body"></tbody>
+            </table>
+
+            <div id="tournament-results-section" style="display: none; margin-top: 30px;">
+                <h3>Turneringsresultater</h3>
+                <table class="leaderboard-table">
+                    <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Træner</th>
+                        <th>Race</th>
+                        <th>Rekord (S-U-T)</th>
+                        <th>Touchdowns (F-I)</th>
+                        <th>Skader (F-I)</th>
+                        <th>Turneringspoint</th>
+                        <th>Seriepoint</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tournament-results-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="admin" class="tab-content">
+            <div class="upload-section">
+                <h3>Upload Turneringsresultater</h3>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="tournament-selector">Turnering:</label>
+                        <select id="tournament-selector">
+                            <option value="">Vælg en turnering...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="csv-file">CSV Fil:</label>
+                        <input type="file" id="csv-file" accept=".csv" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload og Behandl</button>
+                </form>
+            </div>
+
+            <div class="upload-section">
+                <h3>Tilføj Ny Turnering</h3>
+                <form id="tournament-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tournament-name">Turneringsnavn:</label>
+                            <input type="text" id="tournament-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="num-coaches">Antal Trænere:</label>
+                            <input type="number" id="num-coaches" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="start-date">Startdato:</label>
+                            <input type="date" id="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">Slutdato:</label>
+                            <input type="date" id="end-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="num-days">Antal Dage:</label>
+                            <input type="number" id="num-days" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Tilføj Turnering</button>
+                </form>
+            </div>
+        </div>
+
         <p id="noResultsMessage" style="display:none; color:#f97316; font-weight:bold; text-align:center; margin-top:1rem;">
             Ingen resultater fundet.
         </p>
-        <table id="userTable" class="leaderboard-table" role="table" aria-label="Leaderboard Table">
-        <thead>
-            <tr>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='nafNick', sortDir=${sortField == 'nafNick' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        NafNick
-                        <span th:if="${sortField == 'nafNick'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='nafId', sortDir=${sortField == 'nafId' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        NafId
-                        <span th:if="${sortField == 'nafId'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='coachRating', sortDir=${sortField == 'coachRating' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Coach Rating
-                        <span th:if="${sortField == 'coachRating'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='yearHigh', sortDir=${sortField == 'yearHigh' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Year High
-                        <span th:if="${sortField == 'yearHigh'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='country', sortDir=${sortField == 'country' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Country
-                        <span th:if="${sortField == 'country'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='allTimeHigh', sortDir=${sortField == 'allTimeHigh' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        All Time High
-                        <span th:if="${sortField == 'allTimeHigh'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='currentStreakWithoutLoss', sortDir=${sortField == 'currentStreakWithoutLoss' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Current Streak Without Loss
-                        <span th:if="${sortField == 'currentStreakWithoutLoss'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='longestStreakWithoutLoss', sortDir=${sortField == 'longestStreakWithoutLoss' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Longest Streak Without Loss
-                        <span th:if="${sortField == 'longestStreakWithoutLoss'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='nafGamesPlayed', sortDir=${sortField == 'nafGamesPlayed' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        NAF Games Played
-                        <span th:if="${sortField == 'nafGamesPlayed'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{/coach_rating(sortField='winPercentage', sortDir=${sortField == 'winPercentage' and sortDir == 'asc' ? 'desc' : 'asc'})}">
-                        Win %
-                        <span th:if="${sortField == 'winPercentage'}" th:text="${sortDir == 'asc' ? '↑' : '↓'}"></span>
-                    </a>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="coach : ${coachList}">
-                <td th:text="${coach.nafNick}"></td>
-                <td th:text="${coach.nafId}"></td>
-                <td th:text="${coach.coachRating}"></td>
-                <td th:text="${coach.yearHigh}"></td>
-                <td th:text="${coach.country}"></td>
-                <td th:text="${coach.allTimeHigh}"></td>
-                <td th:text="${coach.currentStreakWithoutLoss}"></td>
-                <td th:text="${coach.longestStreakWithoutLoss}"></td>
-                <td th:text="${coach.nafGamesPlayed}"></td>
-                <td th:text="${coach.winPercentage + '%'}"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </main>
+
+<script>
+    // Danish Masters Series JavaScript - Clean version without duplicates
+
+    function openTab(evt, tabName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        const tabs = document.getElementsByClassName("tab");
+
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        for (let i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+        }
+
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function filterTable(tableBodyId, inputId) {
+        const input = document.getElementById(inputId);
+        const filter = input.value.toLowerCase();
+        const tableBody = document.getElementById(tableBodyId);
+        const rows = tableBody.getElementsByTagName("tr");
+        let visibleCount = 0;
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            let showRow = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    showRow = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = showRow ? "" : "none";
+            if (showRow) visibleCount++;
+        }
+
+        const noResultsMessage = document.getElementById("noResultsMessage");
+        noResultsMessage.style.display = (visibleCount === 0 && filter !== "") ? "block" : "none";
+    }
+
+    // API Functions
+    function fetchSeriesStandings(year) {
+        return fetch(`/api/series/${year}`)
+            .then(response => response.json())
+            .catch(error => {
+                console.error('Error fetching series standings:', error);
+                return null;
+            });
+    }
+
+    function fetchTournaments() {
+        return fetch('/api/tournaments')
+            .then(response => response.json())
+            .catch(error => {
+                console.error('Error fetching tournaments:', error);
+                return [];
+            });
+    }
+
+    function fetchTournamentResults(tournamentId) {
+        return fetch(`/api/tournaments/${tournamentId}/results`)
+            .then(response => response.json())
+            .catch(error => {
+                console.error('Error fetching tournament results:', error);
+                return [];
+            });
+    }
+
+    // Display Functions
+    function displayMainStandings(standings) {
+        const tableBody = document.getElementById('main-standings-body');
+        tableBody.innerHTML = '';
+
+        if (!standings || standings.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="9" style="text-align: center; color: #6b7280;">Ingen data tilgængelig</td></tr>';
+            return;
+        }
+
+        standings.forEach((standing, index) => {
+            const row = document.createElement('tr');
+            const avgPlacement = standing.averagePlacement ? standing.averagePlacement.toFixed(1) : 'N/A';
+            const winPercentage = standing.winPercentage ? standing.winPercentage.toFixed(1) + '%' : '0.0%';
+
+            row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${standing.coach?.name || 'N/A'}</td>
+            <td>${standing.totalPoints || 0}</td>
+            <td>${standing.tournamentsAttended || 0}</td>
+            <td>${standing.firstPlaces || 0}-${standing.secondPlaces || 0}-${standing.thirdPlaces || 0}</td>
+            <td>${avgPlacement}</td>
+            <td>${standing.bestPlacement || 'N/A'}</td>
+            <td>${standing.totalMatchesPlayed || 0}</td>
+            <td>${winPercentage}</td>
+        `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function displayCasualtiesStandings(standings) {
+        const tableBody = document.getElementById('casualties-standings-body');
+        tableBody.innerHTML = '';
+
+        if (!standings || standings.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #6b7280;">Ingen data tilgængelig</td></tr>';
+            return;
+        }
+
+        standings.forEach((standing, index) => {
+            const row = document.createElement('tr');
+            const avgCasualties = standing.averageCasualtiesPerTournament ? standing.averageCasualtiesPerTournament.toFixed(1) : '0.0';
+
+            row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${standing.coach?.name || 'N/A'}</td>
+            <td>${standing.totalCasualties || 0}</td>
+            <td>${standing.casDifference > 0 ? '+' : ''}${standing.casDifference || 0}</td>
+            <td>${avgCasualties}</td>
+        `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function displayTouchdownsStandings(standings) {
+        const tableBody = document.getElementById('touchdowns-standings-body');
+        tableBody.innerHTML = '';
+
+        if (!standings || standings.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #6b7280;">Ingen data tilgængelig</td></tr>';
+            return;
+        }
+
+        standings.forEach((standing, index) => {
+            const row = document.createElement('tr');
+            const avgTouchdowns = standing.averageTouchdownsPerTournament ? standing.averageTouchdownsPerTournament.toFixed(1) : '0.0';
+
+            row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${standing.coach?.name || 'N/A'}</td>
+            <td>${standing.totalTouchdowns || 0}</td>
+            <td>${standing.tdDifference > 0 ? '+' : ''}${standing.tdDifference || 0}</td>
+            <td>${avgTouchdowns}</td>
+        `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function displayPariahStandings(standings) {
+        const tableBody = document.getElementById('pariah-standings-body');
+        tableBody.innerHTML = '';
+
+        if (!standings || standings.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #6b7280;">Ingen data tilgængelig</td></tr>';
+            return;
+        }
+
+        standings.forEach((standing, index) => {
+            const row = document.createElement('tr');
+            const avgPariah = standing.pariahTournaments > 0 ? (standing.pariahPoints / standing.pariahTournaments).toFixed(1) : '0.0';
+
+            row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${standing.coach?.name || 'N/A'}</td>
+            <td>${standing.pariahPoints || 0}</td>
+            <td>${standing.pariahTournaments || 0}</td>
+            <td>${standing.pariahRaces || 0}</td>
+            <td>${avgPariah}</td>
+        `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function displayTournaments(tournaments) {
+        const tableBody = document.getElementById('tournaments-body');
+        tableBody.innerHTML = '';
+
+        if (!tournaments || tournaments.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #6b7280;">Ingen turneringer tilgængelige</td></tr>';
+            return;
+        }
+
+        tournaments.forEach(tournament => {
+            const row = document.createElement('tr');
+            const startDate = new Date(tournament.startDate).toLocaleDateString('da-DK');
+            const endDate = new Date(tournament.endDate).toLocaleDateString('da-DK');
+
+            row.innerHTML = `
+            <td>${tournament.name}</td>
+            <td>${startDate} - ${endDate}</td>
+            <td>${tournament.numCoaches}</td>
+            <td>${tournament.numDays}</td>
+            <td><button class="btn btn-primary" onclick="viewTournamentResults(${tournament.id})">Se Resultater</button></td>
+        `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function displayTournamentResults(results) {
+        console.log('🔍 Displaying results:', results); // Debug log
+
+        const tableBody = document.getElementById('tournament-results-body');
+        tableBody.innerHTML = '';
+
+        if (!results || results.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #6b7280;">Ingen resultater tilgængelige</td></tr>';
+            document.getElementById('tournament-results-section').style.display = 'block';
+            return;
+        }
+
+        results.forEach(result => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${result.placement}</td>
+            <td>${result.coachName || 'N/A'}</td>
+            <td>${result.raceName || 'N/A'}</td>
+            <td>${result.matchesWon}-${result.matchesDrawn}-${result.matchesLost}</td>
+            <td>${result.touchdownsFor}-${result.touchdownsAgainst}</td>
+            <td>${result.casualtiesFor}-${result.casualtiesAgainst}</td>
+            <td>${result.points}</td>
+            <td>${result.seriesPoints}</td>
+        `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById('tournament-results-section').style.display = 'block';
+    }
+    function populateTournamentSelector(tournaments) {
+        const selector = document.getElementById('tournament-selector');
+        selector.innerHTML = '<option value="">Vælg en turnering...</option>';
+
+        tournaments.forEach(tournament => {
+            const option = document.createElement('option');
+            option.value = tournament.id;
+            option.textContent = tournament.name;
+            selector.appendChild(option);
+        });
+    }
+
+    // Sorting functionality
+    let currentSort = { tableId: null, column: null, direction: 'asc' };
+
+    function sortTable(tableBodyId, columnIndex, dataType) {
+        const tableBody = document.getElementById(tableBodyId);
+        const rows = Array.from(tableBody.getElementsByTagName('tr'));
+
+        if (rows.length === 0 || (rows.length === 1 && rows[0].children.length === 1)) {
+            return;
+        }
+
+        let direction = 'asc';
+        if (currentSort.tableId === tableBodyId && currentSort.column === columnIndex) {
+            direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        }
+
+        clearSortIndicators();
+
+        rows.sort((a, b) => {
+            const aValue = a.children[columnIndex].textContent.trim();
+            const bValue = b.children[columnIndex].textContent.trim();
+            let comparison = 0;
+
+            if (dataType === 'number') {
+                let aNum = aValue === 'N/A' || aValue === '' ?
+                    (direction === 'asc' ? Number.MAX_VALUE : Number.MIN_VALUE) :
+                    parseFloat(aValue.replace(/[^\d.-]/g, '')) || 0;
+                let bNum = bValue === 'N/A' || bValue === '' ?
+                    (direction === 'asc' ? Number.MAX_VALUE : Number.MIN_VALUE) :
+                    parseFloat(bValue.replace(/[^\d.-]/g, '')) || 0;
+                comparison = aNum - bNum;
+            } else {
+                comparison = aValue.toLowerCase().localeCompare(bValue.toLowerCase(), 'da');
+            }
+
+            return direction === 'asc' ? comparison : -comparison;
+        });
+
+        tableBody.innerHTML = '';
+        rows.forEach((row, index) => {
+            if (columnIndex !== 0) {
+                row.children[0].textContent = index + 1;
+            }
+            tableBody.appendChild(row);
+        });
+
+        const sortIndicatorId = getSortIndicatorId(tableBodyId, columnIndex);
+        const sortIndicator = document.getElementById(sortIndicatorId);
+        if (sortIndicator) {
+            sortIndicator.textContent = direction === 'asc' ? '↑' : '↓';
+        }
+
+        currentSort = { tableId: tableBodyId, column: columnIndex, direction: direction };
+    }
+
+    function clearSortIndicators() {
+        const indicators = document.querySelectorAll('[id^="sort-"]');
+        indicators.forEach(indicator => {
+            indicator.textContent = '';
+        });
+    }
+
+    function getSortIndicatorId(tableBodyId, columnIndex) {
+        let prefix = 'sort';
+        if (tableBodyId.includes('main')) prefix = 'main';
+        else if (tableBodyId.includes('casualties')) prefix = 'cas';
+        else if (tableBodyId.includes('touchdowns')) prefix = 'td';
+        else if (tableBodyId.includes('pariah')) prefix = 'pariah';
+        return `sort-${prefix}-${columnIndex}`;
+    }
+
+    // Event handlers
+    function viewTournamentResults(tournamentId) {
+        fetchTournamentResults(tournamentId).then(results => {
+            displayTournamentResults(results);
+        });
+    }
+
+    function loadSeriesData(year) {
+        fetchSeriesStandings(year).then(data => {
+            if (data) {
+                displayMainStandings(data.mainStandings);
+                displayCasualtiesStandings(data.casualtiesStandings);
+                displayTouchdownsStandings(data.touchdownsStandings);
+                displayPariahStandings(data.pariahStandings);
+            }
+        });
+    }
+
+    function loadTournamentsData() {
+        fetchTournaments().then(tournaments => {
+            displayTournaments(tournaments);
+            populateTournamentSelector(tournaments);
+        });
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentYear = new Date().getFullYear();
+        document.getElementById('year-selector').value = currentYear;
+
+        loadSeriesData(currentYear);
+        loadTournamentsData();
+
+        // Year selector change handler
+        document.getElementById('year-selector').addEventListener('change', (e) => {
+            loadSeriesData(parseInt(e.target.value));
+        });
+
+        // Tournament form submission with debug logging
+        document.getElementById('tournament-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            console.log('🏆 Tournament form submitted!');
+
+            const tournamentName = document.getElementById('tournament-name').value;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const numCoaches = document.getElementById('num-coaches').value;
+            const numDays = document.getElementById('num-days').value;
+
+            console.log('📝 Form values:', {
+                name: tournamentName,
+                startDate: startDate,
+                endDate: endDate,
+                numCoaches: numCoaches,
+                numDays: numDays
+            });
+
+            if (!tournamentName || !startDate || !endDate || !numCoaches) {
+                alert('Udfyld venligst alle påkrævede felter');
+                return;
+            }
+
+            const tournament = {
+                name: tournamentName,
+                startDate: startDate,
+                endDate: endDate,
+                numCoaches: parseInt(numCoaches),
+                numDays: parseInt(numDays) || 1
+            };
+
+            console.log('📤 Sending tournament data:', tournament);
+
+            fetch('/api/tournaments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tournament)
+            })
+                .then(response => {
+                    console.log('📥 Response status:', response.status);
+                    console.log('📥 Response ok:', response.ok);
+
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            console.error('❌ Error response:', text);
+                            throw new Error(`HTTP ${response.status}: ${text}`);
+                        });
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('✅ Success response:', data);
+                    alert('Turnering tilføjet succesfuldt!');
+                    loadTournamentsData();
+                    document.getElementById('tournament-form').reset();
+                })
+                .catch(error => {
+                    console.error('❌ Fetch error:', error);
+                    alert('Fejl ved tilføjelse af turnering: ' + error.message);
+                });
+        });
+
+        // File upload handler
+        document.getElementById('upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const tournamentId = document.getElementById('tournament-selector').value;
+            const file = document.getElementById('csv-file').files[0];
+
+            if (!tournamentId || !file) {
+                alert('Vælg venligst en turnering og en CSV fil.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch(`/api/tournaments/${tournamentId}/import`, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Turneringsresultater importeret succesfuldt!');
+                        viewTournamentResults(tournamentId);
+                        loadSeriesData(document.getElementById('year-selector').value);
+                        document.getElementById('upload-form').reset();
+                    } else {
+                        return response.text().then(text => {
+                            throw new Error(text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Fejl ved import af turneringsresultater: ' + error);
+                });
+        });
+    });
+</script>
+
 <script src="/scripts.js" defer></script>
 </body>
 </html>
