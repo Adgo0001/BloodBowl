@@ -18,7 +18,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String authority = user.getRole().name();
+        String authority = "ROLE_" + user.getRole().name();
         System.out.println("🔐 Authority sendt til Spring Security: " + authority);
         return List.of(new SimpleGrantedAuthority(authority));
     }
@@ -30,7 +30,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername(); // eller email hvis det er login-id
+        return user.getEmail(); // eller email hvis det er login-id
     }
 
     @Override

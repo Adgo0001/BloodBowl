@@ -47,6 +47,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .usernameParameter("email")
                         .failureHandler(failureHandler)
                         .defaultSuccessUrl("/set-username", true)
                         .permitAll()

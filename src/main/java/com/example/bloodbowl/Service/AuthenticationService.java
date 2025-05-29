@@ -23,16 +23,33 @@ public class AuthenticationService {
         String email = oAuth2User.getAttribute("email");
         if (email == null) throw new IllegalArgumentException("Ingen e-mail fundet");
 
+        String providerId = switch (registrationId.toLowerCase()) {
+            case "google" -> oAuth2User.getAttribute("sub");
+            case "facebook" -> oAuth2User.getAttribute("id");
+            default -> null;
+        };
+
+        // Her sikrer vi at name er defineret, hvis den ikke findes i OAuth2User, sættes den til email
+        String name = oAuth2User.getAttribute("name");
+        if (name == null) {
+            name = email;
+        }
+
+        final String finalName = name;
+
         return userService.findByEmail(email).orElseGet(() ->
                 userService.createOAuthUser(
                         email,
-                        oAuth2User.getAttribute("name"),
+                        finalName,
                         oAuth2User.getAttribute("picture"),
-                        oAuth2User.getAttribute("sub"), // Eller "id" for Facebook
+                        providerId,
                         mapToProvider(registrationId)
                 )
         );
+
     }
+
+
 
     public User getAuthenticatedUser(Authentication authentication) {
         if (authentication instanceof OAuth2AuthenticationToken token &&
