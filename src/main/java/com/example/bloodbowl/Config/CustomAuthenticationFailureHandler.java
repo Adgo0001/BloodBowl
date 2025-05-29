@@ -24,7 +24,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
-        String email = request.getParameter("username");
+        String email = request.getParameter("email");
 
         if (email != null && !userRepository.findByEmail(email).isPresent()) {
             // Vis login-siden igen, men med registreringsformular og forudfyldt email

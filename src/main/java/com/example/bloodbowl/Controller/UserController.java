@@ -1,6 +1,8 @@
 package com.example.bloodbowl.Controller;
 
+import com.example.bloodbowl.Model.Role;
 import com.example.bloodbowl.Model.User;
+import com.example.bloodbowl.Service.AuthenticationService;
 import com.example.bloodbowl.Service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,55 +17,11 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final AuthenticationService authenticationService;
+
+    public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/set-username")
-    public String showSetUsernamePage(Model model, Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/login"; // eller redirect til forsiden
-        }
-
-        User user = userService.findOrCreateUser(authentication);
-
-        if (user == null) {
-            return "redirect:/";
-        }
-
-        if (user.getUsername() == null) {
-            model.addAttribute("user", user);
-            return "set-username";
-        }
-
-        return "redirect:/";
-    }
-
-    @PostMapping("/set-username")
-    public String setUsername(@RequestParam String username, Authentication authentication, Model model) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/login";
-        }
-
-        User user = userService.findOrCreateUser(authentication);
-
-        if (username == null || username.trim().isEmpty()) {
-            model.addAttribute("user", user);
-            model.addAttribute("error", "Brugernavnet må ikke være tomt.");
-            return "set-username";
-        }
-
-        Optional<User> userWithSameUsername = userService.findByUsername(username);
-        if (userWithSameUsername.isPresent()) {
-            model.addAttribute("user", user);
-            model.addAttribute("error", "Brugernavnet er allerede taget.");
-            return "set-username";
-        }
-
-        System.out.println("Opdaterer brugernavn: " + username);
-
-        userService.updateUsername(user, username);
-        return "redirect:/";
+        this.authenticationService = authenticationService;
     }
 
     @GetMapping

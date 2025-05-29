@@ -1,14 +1,16 @@
 package com.example.bloodbowl.Controller;
 
-import com.example.bloodbowl.Model.Coach;
-import com.example.bloodbowl.Model.PlayerResult;
 import com.example.bloodbowl.Model.User;
-import com.example.bloodbowl.Repository.CoachRepository;
-import com.example.bloodbowl.Repository.UserRepository;
+import com.example.bloodbowl.Service.UserService;
+import com.example.bloodbowl.Model.PlayerResult;
 import com.example.bloodbowl.Service.AllServices;
 import com.example.bloodbowl.Service.CoachService;
 import com.example.bloodbowl.Service.PlayerResultService;
+import com.example.bloodbowl.Model.Coach;
+import com.example.bloodbowl.Repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,22 +26,41 @@ public class MainController {
     private final AllServices allServices;
     private final CoachService coachService;
     private final PlayerResultService playerResultService;
+    private final UserService userService;
     private final CoachRepository coachRepository;
-    private final UserRepository userRepository;
 
     @Autowired
-    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService, CoachRepository coachRepository, UserRepository userReporitory) {
+    public MainController(AllServices allServices, CoachService coachService, PlayerResultService playerResultService, UserService userService, CoachRepository coachRepository) {
         this.allServices = allServices;
         this.coachService = coachService;
         this.playerResultService = playerResultService;
+        this.userService = userService;
         this.coachRepository = coachRepository;
-        this.userRepository = userReporitory;
     }
 
     @GetMapping("/")
     public String homehome(Model model) {
         model.addAttribute("newsList", allServices.getAllNews());
         model.addAttribute("eventList", allServices.getAllEvents());
+        return "index";
+    }
+
+    public String home(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            // Hent eller opret bruger ud fra auth info
+            User user = userService.findOrCreateUser(auth);
+            model.addAttribute("name", user.getName());
+            model.addAttribute("email", user.getEmail());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("picture", user.getPicture());
+        }
+
+        // Tilføj nyheder og events til model
+        model.addAttribute("newsList", allServices.getAllNews());
+        model.addAttribute("eventList", allServices.getAllEvents());
+
         return "index";
     }
 
@@ -110,13 +131,6 @@ public class MainController {
     @GetMapping("/tournaments")
     public String tournaments() {
         return "tournaments";
-    }
-
-    @GetMapping("/admin_panel")
-    public String adminDashboard(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "admin_panel";
     }
 }
 
