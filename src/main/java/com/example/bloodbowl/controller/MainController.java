@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -44,24 +45,13 @@ public class MainController {
     }
 
     @GetMapping("/coach_rating")
-    public String getCoachRating(
-            @RequestParam(defaultValue = "winPercentage") String sortField,
-            @RequestParam(defaultValue = "desc") String sortDir,
-            Model model
-    ) {
-        System.out.println("Sort field: " + sortField + ", Sort dir: " + sortDir);
-
-        Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-
-        List<Coach> coaches = coachRepository.findAll(Sort.by(direction, sortField));
-        System.out.println("Antal coaches fundet: " + coaches.size());
-
-        model.addAttribute("coachList", coaches);
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-
-        return "coach_rating";
+    public String getCoachRating(Model model) {
+        // Remove the old sorting logic for Coach entities
+        // Add current year for Danish Masters functionality
+        model.addAttribute("currentYear", LocalDate.now().getYear());
+        return "coach_rating";  // This will load the Danish Masters functionality
     }
+
 
     @GetMapping("/danish_masters")
     public String danishMasters(
@@ -81,9 +71,26 @@ public class MainController {
     }
 
 
+
+
+    @GetMapping("/TournamentTracker")
+    public String TournamentTracker() {
+        return "TournamentTracker";
+    }
+
+    @GetMapping("/BloodbowlServletTest")
+    public String BloodbowlServletTest() {
+        return "BloodbowlServletTest";
+    }
+
     @GetMapping("/euro_bowl")
     public String euroBowl() {
         return "euro_bowl";
+    }
+
+    @GetMapping("/ApiTester")
+    public String ApiTester() {
+        return "ApiTester";
     }
 
 //    @GetMapping("/login")
@@ -101,3 +108,4 @@ public class MainController {
         return "tournaments";
     }
 }
+
